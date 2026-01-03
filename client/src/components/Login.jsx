@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Login.css";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -24,43 +25,53 @@ const Login = () => {
       const parseRes = await response.json();
 
       if (response.ok) {
-        setMessage("Успешен вход!");
-        // Later we will save the token -JWB
+        setMessage({ text: "Успешен вход!", type: "success" });
         console.log("Token:", parseRes.token);
+        // Here we can later save the token
       } else {
-        setMessage(parseRes.message || "Грешка при вход");
+        setMessage({ text: parseRes.message || "Грешка при вход", type: "error" });
       }
     } catch (err) {
       console.error(err.message);
-      setMessage("Сървърна грешка");
+      setMessage({ text: "Сървърна грешка", type: "error" });
     }
   };
 
   return (
-    <div style={{ padding: "20px", border: "1px solid #ccc", maxWidth: "400px", marginTop: "20px" }}>
-      <h2>Вход</h2>
+    <div className="auth-container">
+      <h1>Finance Tracker</h1>
+      <h2>Вход в системата</h2>
+      
       <form onSubmit={onSubmitForm}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Имейл"
-          value={inputs.email}
-          onChange={handleChange}
-          required
-          style={{ display: "block", margin: "10px 0", padding: "8px", width: "100%" }}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Парола"
-          value={inputs.password}
-          onChange={handleChange}
-          required
-          style={{ display: "block", margin: "10px 0", padding: "8px", width: "100%" }}
-        />
-        <button type="submit" style={{ padding: "10px 20px", cursor: "pointer" }}>Влез</button>
+        <div className="form-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Имейл"
+            value={inputs.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Парола"
+            value={inputs.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <button type="submit" className="btn-submit">Влез</button>
       </form>
-      {message && <p style={{ color: message.includes("Успешен") ? "green" : "red" }}>{message}</p>}
+
+      {message && (
+        <div className={`message ${message.type}`}>
+          {message.text}
+        </div>
+      )}
     </div>
   );
 };
