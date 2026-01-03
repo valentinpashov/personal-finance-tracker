@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import "./Register.css"; 
 
 const Register = () => {
   const navigate = useNavigate();
 
-  // form state
+  // Form state
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
     password: ""
   });
 
-  const [message, setMessage] = useState("");
+  // Msg state with type - success or error
+  const [message, setMessage] = useState(null);
 
-  // function to handle input changes
+  // Function to track input changes
   const handleChange = (e) => {
     setInputs({
       ...inputs,
@@ -21,7 +23,7 @@ const Register = () => {
     });
   };
 
-  // function to handle form submission
+  // Function to handle form submission
   const onSubmitForm = async (e) => {
     e.preventDefault();
 
@@ -35,28 +37,30 @@ const Register = () => {
       const parseRes = await response.json();
 
       if (response.ok) {
-        // Successful case
-        setMessage("Успешна регистрация! Пренасочване...");
+        // SUCCESS: Green message
+        setMessage({ text: "Успешна регистрация! Пренасочване...", type: "success" });
         
-        // Wait 1.5 seconds and redirect
         setTimeout(() => {
           navigate("/login");
-        }, 1500);
+        }, 1500);   // 1,5 seconds
       } else {
-        // Error case (e.g., email taken)
-        setMessage(parseRes.message || "Грешка при регистрация");
+        // ERROR: Red message
+        setMessage({ text: parseRes.message || "Грешка при регистрация", type: "error" });
       }
     } catch (err) {
       console.error(err.message);
-      setMessage("Сървърът не отговаря!");
+      // SERVER ERROR: Red message
+      setMessage({ text: "Сървърът не отговаря!", type: "error" });
     }
   };
 
   return (
-    <div style={{ padding: "20px", border: "1px solid #ccc", maxWidth: "400px", margin: "0 auto" }}>
-      <h2>Регистрация</h2>
+    <div className="auth-container">
+      <h1>Finance Tracker</h1>
+      <h2>Създай профил</h2>
+      
       <form onSubmit={onSubmitForm}>
-        <div>
+        <div className="form-group">
           <input
             type="text"
             name="username"
@@ -64,21 +68,19 @@ const Register = () => {
             value={inputs.username}
             onChange={handleChange}
             required
-            style={{ display: "block", margin: "10px 0", padding: "8px", width: "100%" }}
           />
         </div>
-        <div>
+        <div className="form-group">
           <input
             type="email"
             name="email"
-            placeholder="Имейл"
+            placeholder="Имейл адрес"
             value={inputs.email}
             onChange={handleChange}
             required
-            style={{ display: "block", margin: "10px 0", padding: "8px", width: "100%" }}
           />
         </div>
-        <div>
+        <div className="form-group">
           <input
             type="password"
             name="password"
@@ -86,25 +88,21 @@ const Register = () => {
             value={inputs.password}
             onChange={handleChange}
             required
-            style={{ display: "block", margin: "10px 0", padding: "8px", width: "100%" }}
           />
         </div>
-        <button type="submit" style={{ padding: "10px 20px", cursor: "pointer", width: "100%" }}>
-          Регистрирай се
-        </button>
+        
+        <button type="submit" className="btn-submit">Регистрирай се</button>
+      
       </form>
 
-      {/* Message for error or success */}
+      {/* Message display */}
       {message && (
-        <p style={{ color: message.includes("Успеш") ? "green" : "red", marginTop: "10px" }}>
-          {message}
-        </p>
+        <div className={`message ${message.type}`}>
+          {message.text}
+        </div>
       )}
 
-      {/* Link to login page */}
-      <p style={{ marginTop: "15px", fontSize: "14px" }}>
-        Вече имаш акаунт? <Link to="/login" style={{ color: "blue" }}>Влез тук</Link>
-      </p>
+      <p style={{ marginTop: "20px", fontSize: "14px" }}>Вече имаш акаунт? <Link to="/login">Влез тук</Link></p>
     </div>
   );
 };
