@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-  // form input state
+  const navigate = useNavigate();
+
+  // form state
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
@@ -18,24 +21,29 @@ const Register = () => {
     });
   };
 
-    // function to handle form submission
+  // function to handle form submission
   const onSubmitForm = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     try {
-      // Send the registration data to the server
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inputs) 
+        body: JSON.stringify(inputs)
       });
 
       const parseRes = await response.json();
 
       if (response.ok) {
-        setMessage("Успешна регистрация! Токен: " + parseRes.token.slice(0, 10) + "...");
-        console.log("Успех:", parseRes);
+        // Successful case
+        setMessage("Успешна регистрация! Пренасочване...");
+        
+        // Wait 1.5 seconds and redirect
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
       } else {
+        // Error case (e.g., email taken)
         setMessage(parseRes.message || "Грешка при регистрация");
       }
     } catch (err) {
@@ -45,7 +53,7 @@ const Register = () => {
   };
 
   return (
-    <div style={{ padding: "20px", border: "1px solid #ccc", maxWidth: "400px" }}>
+    <div style={{ padding: "20px", border: "1px solid #ccc", maxWidth: "400px", margin: "0 auto" }}>
       <h2>Регистрация</h2>
       <form onSubmit={onSubmitForm}>
         <div>
@@ -81,12 +89,22 @@ const Register = () => {
             style={{ display: "block", margin: "10px 0", padding: "8px", width: "100%" }}
           />
         </div>
-        <button type="submit" style={{ padding: "10px 20px", cursor: "pointer" }}>
+        <button type="submit" style={{ padding: "10px 20px", cursor: "pointer", width: "100%" }}>
           Регистрирай се
         </button>
       </form>
-      
-      {message && <p style={{ color: message.includes("Успех") ? "green" : "red" }}>{message}</p>}
+
+      {/* Message for error or success */}
+      {message && (
+        <p style={{ color: message.includes("Успеш") ? "green" : "red", marginTop: "10px" }}>
+          {message}
+        </p>
+      )}
+
+      {/* Link to login page */}
+      <p style={{ marginTop: "15px", fontSize: "14px" }}>
+        Вече имаш акаунт? <Link to="/login" style={{ color: "blue" }}>Влез тук</Link>
+      </p>
     </div>
   );
 };
