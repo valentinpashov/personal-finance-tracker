@@ -1,6 +1,3 @@
-/* client/src/components/Login.css */
-
-/* Контейнерът (Бялата карта) */
 .auth-container {
   background-color: white;
   padding: 2rem;
@@ -11,9 +8,9 @@
   text-align: center;
 }
 
-/* Заглавия */
+/* Title */
 .auth-container h1 {
-  color: #2e7d32; /* Тъмно зелено */
+  color: #2e7d32;
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
 }
@@ -23,7 +20,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* Полетата */
+/* Form fields */
 .form-group {
   margin-bottom: 15px;
   text-align: left;
@@ -45,7 +42,7 @@
   background-color: #f9fff9;
 }
 
-/* Бутонът */
+/* Submit button */
 .btn-submit {
   width: 100%;
   padding: 12px;
@@ -64,7 +61,7 @@
   background-color: #1b5e20;
 }
 
-/* Съобщения за грешка/успех */
+/* Error/Success messages  */
 .message {
   margin-top: 15px;
   padding: 10px;
