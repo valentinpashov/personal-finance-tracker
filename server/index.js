@@ -41,7 +41,35 @@ app.post('/register', async (req, res) => {
   }
 });
 
+// Login
+app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
+    // User Input Validation
+    const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    
+    if (user.rows.length === 0) {
+      return res.status(401).json({ message: 'Грешен имейл или парола!' });
+    }
+
+    // Check if the password matches 
+    const validPassword = await bcrypt.compare(password, user.rows[0].password_hash);
+    
+    if (!validPassword) {
+      return res.status(401).json({ message: 'Грешен имейл или парола!' });
+    }
+
+    // Generate JWT Token (This is the personal ID)
+    const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.json({ token, user: { id: user.rows[0].id, username: user.rows[0].username, email: user.rows[0].email } });
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
