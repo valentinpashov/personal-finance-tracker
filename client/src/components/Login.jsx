@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
+  const navigate = useNavigate(); 
+
   const [inputs, setInputs] = useState({
     email: "",
     password: ""
   });
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -25,9 +28,14 @@ const Login = () => {
       const parseRes = await response.json();
 
       if (response.ok) {
-        setMessage({ text: "Успешен вход!", type: "success" });
-        console.log("Token:", parseRes.token);
-        // Here we can later save the token
+        // save token and user to localStorage
+        localStorage.setItem("token", parseRes.token);
+        localStorage.setItem("user", JSON.stringify(parseRes.user));
+
+        // message for successful login
+        setMessage({ text: "Успешен вход! Пренасочване...", type: "success" });
+        
+        
       } else {
         setMessage({ text: parseRes.message || "Грешка при вход", type: "error" });
       }
@@ -72,6 +80,11 @@ const Login = () => {
           {message.text}
         </div>
       )}
+
+      {/* Link to register */}
+      <p style={{ marginTop: "20px", fontSize: "14px" }}>
+        Нямаш акаунт? <Link to="/register" style={{ color: "#2e7d32", fontWeight: "bold" }}>Регистрирай се тук</Link>
+      </p>
     </div>
   );
 };
