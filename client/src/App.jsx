@@ -6,7 +6,6 @@ function App() {
   return (
     <Router>
       <div style={{ padding: "20px" }}>
-        <h1>Personal Finance Tracker</h1>
         
         <Routes>
           <Route path="/" element={<Navigate to="/register" />} />
