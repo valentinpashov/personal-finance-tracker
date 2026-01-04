@@ -56,7 +56,7 @@ const Register = () => {
 
   return (
     <div className="auth-container">
-      <h1>Finance Tracker</h1>
+      <h1>Personal Finance Tracker</h1>
       <h2>Създай профил</h2>
       
       <form onSubmit={onSubmitForm}>
