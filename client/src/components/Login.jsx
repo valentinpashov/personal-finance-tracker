@@ -39,7 +39,7 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <h1>Finance Tracker</h1>
+      <h1>Personal Finance Tracker</h1>
       <h2>Вход в системата</h2>
       
       <form onSubmit={onSubmitForm}>
