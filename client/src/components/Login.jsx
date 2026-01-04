@@ -35,6 +35,10 @@ const Login = () => {
         // message for successful login
         setMessage({ text: "Успешен вход! Пренасочване...", type: "success" });
         
+        // redirect to dashboard 
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1000);  // 1 seconds delay
         
       } else {
         setMessage({ text: parseRes.message || "Грешка при вход", type: "error" });
