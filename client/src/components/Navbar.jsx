@@ -1,0 +1,27 @@
+import { useNavigate } from "react-router-dom";
+import "./Navbar.css";
+
+const Navbar = () => {
+  const navigate = useNavigate();
+  
+  // take user data from localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+
+ 
+
+  return (
+    <nav className="navbar">
+      <div className="navbar-brand">
+        <h2>💰 Finance Tracker</h2>
+      </div>
+      
+      <div className="navbar-user">
+        {user && <span>Здравей, <strong>{user.username}</strong></span>}
+        
+        <button onClick={handleLogout} className="btn-logout">Изход</button>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
