@@ -7,7 +7,12 @@ const Navbar = () => {
   // take user data from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
 
- 
+  const handleLogout = () => {
+    // Clear localStorage and redirect to login
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
