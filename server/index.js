@@ -89,11 +89,23 @@ app.post('/transactions', async (req, res) => {
   }
 });
 
+// Get User Transactions
+app.get('/transactions/:user_id', async (req, res) => {
+  try {
+    const { user_id } = req.params;
 
+    // Get all transactions for this user, ordered by date 
+    const allTransactions = await pool.query(
+      "SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC",
+      [user_id]
+    );
 
-
-
-
+    res.json(allTransactions.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
