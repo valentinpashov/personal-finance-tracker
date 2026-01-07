@@ -9,7 +9,27 @@ const InputTransaction = ({ onTransactionAdded }) => {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense"); 
 
- 
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const body = { user_id: user.id, description, amount, type };
+      
+      const response = await fetch("http://localhost:5000/transactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      if (response.ok) {
+        setDescription("");
+        setAmount("");
+
+        if (onTransactionAdded) onTransactionAdded();
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <div className="input-container">
