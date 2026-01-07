@@ -71,6 +71,30 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Add Transaction
+app.post('/transactions', async (req, res) => {
+  try {
+    // Data from Frontend
+    const { user_id, description, amount, type } = req.body;
+
+    const newTransaction = await pool.query(
+      "INSERT INTO transactions (user_id, description, amount, type) VALUES ($1, $2, $3, $4) RETURNING *",
+      [user_id, description, amount, type]
+    );
+
+    res.json(newTransaction.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+
+
+
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
