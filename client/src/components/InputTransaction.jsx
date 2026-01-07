@@ -2,12 +2,11 @@ import { useState } from "react";
 import "./InputTransaction.css"; 
 
 const InputTransaction = ({ onTransactionAdded }) => {
-  // user's data from local storage
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [type, setType] = useState("expense"); 
+  const [type, setType] = useState("expense");
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -23,7 +22,6 @@ const InputTransaction = ({ onTransactionAdded }) => {
       if (response.ok) {
         setDescription("");
         setAmount("");
-
         if (onTransactionAdded) onTransactionAdded();
       }
     } catch (err) {
@@ -37,7 +35,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
       <form onSubmit={onSubmitForm} className="input-form">
         <input
           type="text"
-          placeholder="Описание (напр. Заплата, Кафе)"
+          placeholder="Описание (напр. Заплата)"
           value={description}
           onChange={e => setDescription(e.target.value)}
           required
@@ -53,7 +51,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
           <option value="expense">Разход</option>
           <option value="income">Приход</option>
         </select>
-        <button type="submit" className={type === "income" ? "btn-income" : "btn-expense"}> + Добави </button>
+        <button type="submit" className={type === "income" ? "btn-income" : "btn-expense"}>+ Добави</button>
       </form>
     </div>
   );
