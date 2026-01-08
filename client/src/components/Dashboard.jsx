@@ -98,7 +98,34 @@ const Dashboard = () => {
         {/* Form */}
         <InputTransaction onTransactionAdded={handleTransactionAdded} />
 
-        
+        {/* History */}
+        <div className="history-container">
+          
+          {/* Left Column: Income */}
+          <div className="history-column">
+            <h3 style={{color: "#2e7d32"}}>💰 Приходи</h3>
+            {transactions.filter(t => t.type === 'income').length === 0 ? (
+               <p style={{color: "#ccc", fontStyle: "italic"}}>Няма приходи.</p>
+            ) : (
+               transactions
+                 .filter(t => t.type === 'income')
+                 .map(tr => renderTransactionItem(tr))
+            )}
+          </div>
+
+          {/* Right Column: Expenses */}
+          <div className="history-column">
+            <h3 style={{color: "#c62828"}}>📉 Разходи</h3>
+            {transactions.filter(t => t.type === 'expense').length === 0 ? (
+               <p style={{color: "#ccc", fontStyle: "italic"}}>Няма разходи.</p>
+            ) : (
+               transactions
+                 .filter(t => t.type === 'expense')
+                 .map(tr => renderTransactionItem(tr))
+            )}
+          </div>
+
+        </div>
 
       </div>
     </div>
