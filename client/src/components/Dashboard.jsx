@@ -5,8 +5,8 @@ import "./Dashboard.css";
 
 const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  
-  // use only userId for dependency tracking
+
+   // use only userId for dependency tracking
   const userId = user ? user.id : null;
 
   const [transactions, setTransactions] = useState([]);
@@ -27,8 +27,8 @@ const Dashboard = () => {
     };
 
     fetchData();
-    
-    // Dependencies from userId и refresh.
+
+   // Dependencies from userId и refresh. 
   }, [refresh, userId]); 
 
   const handleTransactionAdded = () => {
@@ -37,7 +37,7 @@ const Dashboard = () => {
 
   // Calculate income, expense, and balance
   const income = transactions
-    .filter(t => t.type === 'income') 
+    .filter(t => t.type === 'income')
     .reduce((acc, curr) => acc + Number(curr.amount), 0);
 
   const expense = transactions
@@ -46,6 +46,30 @@ const Dashboard = () => {
 
   const balance = income - expense;
 
+  const renderTransactionItem = (tr) => (
+    <div key={tr.id} style={{
+        borderBottom: "1px solid #eee",
+        padding: "10px 0",
+        display: "flex", 
+        justifyContent: "space-between",
+        alignItems: "center"
+    }}>
+        <div>
+            <span style={{fontWeight: "bold", display: "block", color: "#333"}}>{tr.description}</span>
+            <span style={{fontSize: "12px", color: "#999"}}>
+                {new Date(tr.date).toLocaleDateString('bg-BG')}
+            </span>
+        </div>
+        <span style={{
+            color: tr.type === 'income' ? '#2e7d32' : '#c62828', 
+            fontWeight: "bold",
+            fontSize: "1rem"
+        }}>
+            {Number(tr.amount).toFixed(2)} лв.
+        </span>
+    </div>
+  );
+
   return (
     <div className="dashboard-container">
       <Navbar />
@@ -53,6 +77,7 @@ const Dashboard = () => {
       <div className="content">
         <h1>Твоето финансово табло</h1>
         
+        {/* Display */}
         <div className="stats-grid">
            <div className="card">
               <h3>Приходи</h3>
@@ -64,46 +89,16 @@ const Dashboard = () => {
            </div>
            <div className="card">
               <h3>Баланс</h3>
-              <p className={balance >= 0 ? "blue" : "red"}>{balance.toFixed(2)} лв.</p>
+              <p className={balance >= 0 ? "blue" : "red"}>
+                {balance.toFixed(2)} лв.
+              </p>
            </div>
         </div>
 
+        {/* Form */}
         <InputTransaction onTransactionAdded={handleTransactionAdded} />
 
-        <div style={{marginTop: "30px", textAlign: "left", maxWidth: "600px", margin: "30px auto"}}>
-            <h3 style={{borderBottom: "1px solid #ccc", paddingBottom: "10px"}}>История на транзакциите</h3>
-            
-            {transactions.length === 0 ? (
-                <p style={{textAlign: "center", color: "#888"}}>Все още няма въведени данни.</p>
-            ) : (
-                transactions.map(tr => (
-                    <div key={tr.id} style={{
-                        background: "white", 
-                        padding: "15px", 
-                        margin: "10px 0", 
-                        borderRadius: "8px", 
-                        boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
-                        display: "flex", 
-                        justifyContent: "space-between",
-                        alignItems: "center"
-                    }}>
-                        <div>
-                            <span style={{fontWeight: "bold", display: "block"}}>{tr.description}</span>
-                            <span style={{fontSize: "12px", color: "#777"}}>
-                                {new Date(tr.date).toLocaleDateString('bg-BG')}
-                            </span>
-                        </div>
-                        <span style={{
-                            color: tr.type === 'income' ? '#2e7d32' : '#c62828', 
-                            fontWeight: "bold",
-                            fontSize: "1.1rem"
-                        }}>
-                            {tr.type === 'income' ? '+' : '-'}{Number(tr.amount).toFixed(2)} лв.
-                        </span>
-                    </div>
-                ))
-            )}
-        </div>
+        
 
       </div>
     </div>
