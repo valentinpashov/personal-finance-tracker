@@ -33,7 +33,6 @@
 .red { color: #c62828; }
 .blue { color: #1565c0; }
 
-
 .history-container {
   display: flex; 
   gap: 20px;     
@@ -58,6 +57,33 @@
   color: #555;
   text-align: center;
 }
+
+.transaction-item {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-desc {
+  font-weight: bold;
+  color: #333;
+}
+
+.transaction-date {
+  font-size: 13px;
+  color: #999;
+  margin-left: 10px;
+}
+
+.transaction-amount {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.amount-income { color: #2e7d32; }
+.amount-expense { color: #c62828; }
 
 @media (max-width: 768px) {
   .history-container {
