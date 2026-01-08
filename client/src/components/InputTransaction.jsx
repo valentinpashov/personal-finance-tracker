@@ -57,15 +57,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
           </button>
         </div>
 
-        {/* Description input */}
-        <input
-          type="text"
-          placeholder="Описание"
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-          required
-        />
-        
+        {/* Amount input */}
         <input
           type="number"
           placeholder="Сума"
@@ -74,6 +66,15 @@ const InputTransaction = ({ onTransactionAdded }) => {
           required
         />
 
+        {/* Description input */}
+        <input
+          type="text"
+          placeholder="Описание"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+          required
+        />
+    
         {/* Submit button */}
         <button type="submit" className="btn-add"> + Добави </button>
 
