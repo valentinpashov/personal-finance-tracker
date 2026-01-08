@@ -38,7 +38,7 @@ const Login = () => {
         // redirect to dashboard 
         setTimeout(() => {
           navigate("/dashboard");
-        }, 1000);  // 1 seconds delay
+        }, );  
         
       } else {
         setMessage({ text: parseRes.message || "Грешка при вход", type: "error" });
