@@ -6,7 +6,7 @@ import "./Dashboard.css";
 const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
-   // use only userId for dependency tracking
+  // use only userId for dependency tracking
   const userId = user ? user.id : null;
 
   const [transactions, setTransactions] = useState([]);
@@ -28,7 +28,7 @@ const Dashboard = () => {
 
     fetchData();
 
-   // Dependencies from userId и refresh. 
+    // Dependencies from userId и refresh. 
   }, [refresh, userId]); 
 
   const handleTransactionAdded = () => {
@@ -55,11 +55,11 @@ const Dashboard = () => {
         alignItems: "center"
     }}>
         <div>
-            <span style={{fontWeight: "bold", display: "block", color: "#333"}}>{tr.description}</span>
-            <span style={{fontSize: "12px", color: "#999"}}>
-                {new Date(tr.date).toLocaleDateString('bg-BG')}
-            </span>
+            <span style={{fontWeight: "bold", color: "#333"}}>{tr.description}</span>
+            
+            <span style={{fontSize: "15px", color: "#000000ff", marginLeft: "10px"}}>{new Date(tr.date).toLocaleDateString('bg-BG')}</span>
         </div>
+
         <span style={{
             color: tr.type === 'income' ? '#2e7d32' : '#c62828', 
             fontWeight: "bold",
@@ -77,7 +77,7 @@ const Dashboard = () => {
       <div className="content">
         <h1>Твоето финансово табло</h1>
         
-        {/* Display */}
+       {/* Display */}
         <div className="stats-grid">
            <div className="card">
               <h3>Приходи</h3>
