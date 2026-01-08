@@ -3,15 +3,18 @@ import "./InputTransaction.css";
 
 const InputTransaction = ({ onTransactionAdded }) => {
   const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user ? user.id : null;
 
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [type, setType] = useState("expense");
+  const [type, setType] = useState("expense"); // 'expense' in classic mode
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
+    if (!userId) return;
+
     try {
-      const body = { user_id: user.id, description, amount, type };
+      const body = { user_id: userId, description, amount, type };
       
       const response = await fetch("http://localhost:5000/transactions", {
         method: "POST",
@@ -32,14 +35,37 @@ const InputTransaction = ({ onTransactionAdded }) => {
   return (
     <div className="input-container">
       <h3>Добави транзакция</h3>
+      
       <form onSubmit={onSubmitForm} className="input-form">
+        
+        {/* type button */}
+        <div className="type-buttons">
+          <button 
+            type="button" 
+            className={`type-btn ${type === 'income' ? 'active-income' : ''}`}
+            onClick={() => setType('income')}
+          >
+            Приход
+          </button>
+          
+          <button 
+            type="button" 
+            className={`type-btn ${type === 'expense' ? 'active-expense' : ''}`}
+            onClick={() => setType('expense')}
+          >
+            Разход
+          </button>
+        </div>
+
+        {/* Description input */}
         <input
           type="text"
-          placeholder="Описание (напр. Заплата)"
+          placeholder="Описание"
           value={description}
           onChange={e => setDescription(e.target.value)}
           required
         />
+        
         <input
           type="number"
           placeholder="Сума"
@@ -47,11 +73,10 @@ const InputTransaction = ({ onTransactionAdded }) => {
           onChange={e => setAmount(e.target.value)}
           required
         />
-        <select value={type} onChange={e => setType(e.target.value)}>
-          <option value="expense">Разход</option>
-          <option value="income">Приход</option>
-        </select>
-        <button type="submit" className={type === "income" ? "btn-income" : "btn-expense"}>+ Добави</button>
+
+        {/* Submit button */}
+        <button type="submit" className="btn-add"> + Добави </button>
+
       </form>
     </div>
   );
