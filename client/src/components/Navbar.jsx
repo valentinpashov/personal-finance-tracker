@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -21,6 +21,9 @@ const Navbar = () => {
       </div>
       
       <div className="navbar-user">
+
+        <Link to="/calendar" className="nav-link">📅 Календар</Link>
+
         {user && <span>Здравей, <strong>{user.username}</strong></span>}
         
         <button onClick={handleLogout} className="btn-logout">Изход</button>
