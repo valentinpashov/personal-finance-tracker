@@ -33,6 +33,19 @@ const CalendarPage = () => {
     return tDate === sDate;
   });
 
+  // function to add dots on dates with transactions
+  const tileContent = ({ date, view }) => {
+    if (view === 'month') {
+      
+      // Check if there are transactions on this date
+      const hasTransaction = transactions.some(t => 
+        new Date(t.date).toDateString() === date.toDateString()
+      );
+      
+      if (hasTransaction) {
+        return <div className="dot"></div>;
+      }
+    }
   };
 
   return (
