@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import CalendarPage from "./components/CalendarPage";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+
+          <Route path="/calendar" element={<CalendarPage />} />
         </Routes>
     </Router>
   );
