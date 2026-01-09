@@ -26,7 +26,13 @@ const CalendarPage = () => {
     fetchData();
   }, [userId]);
 
-  
+  // Only transactions for the selected date
+  const selectedDateTransactions = transactions.filter(t => {
+    const tDate = new Date(t.date).toDateString(); 
+    const sDate = date.toDateString();
+    return tDate === sDate;
+  });
+
   };
 
   return (
