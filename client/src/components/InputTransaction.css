@@ -69,3 +69,11 @@
 .btn-add:hover {
   background-color: #000;
 }
+.category-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
