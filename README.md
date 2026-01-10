@@ -1,13 +1,24 @@
 # 💰 Personal Finance Tracker
 
-A full-stack web application for tracking personal income and expenses. This project is currently under development.
+A full-stack application for tracking personal finances. Users can manage their income and expenses, view their balance history, and track spending habits via a calendar view.
+
+## ✨ Key Features
+
+* **🔐 Authentication:** Secure Login and Registration (JWT & bcrypt).
+* **📊 Dashboard:** Real-time overview of Total Balance, Income, and Expenses.
+* **📝 Transaction Management:**
+    * Add income or expenses with specific **Categories** .
+    * **Edit** and **Delete** existing transactions.
+    * Visual split between Income and Expense history.
+* **📅 Financial Calendar:** Interactive calendar view to track spending 
+* **📱 Responsive Design:** Works on desktop and mobile.
 
 ## 🚀 Tech Stack
-* **Frontend:** React.js (Vite), Chart.js
-* **Backend:** Node.js, Express.js
-* **Database:** PostgreSQL 
-* **Authentication:** JWT & bcrypt
 
+* **Frontend:** React.js (Vite), React Router, React Calendar
+* **Backend:** Node.js, Express.js
+* **Database:** PostgreSQL
+* **Authentication:** JSON Web Tokens (JWT)
 ## 🛠️ Getting Started
 
 ### Prerequisites
