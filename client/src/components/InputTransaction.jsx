@@ -7,14 +7,20 @@ const InputTransaction = ({ onTransactionAdded }) => {
 
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [type, setType] = useState("expense"); // 'expense' in classic mode
+  const [type, setType] = useState("expense");
+  
+  // 1. ПРОМЯНА: Започваме с празна категория
+  const [category, setCategory] = useState(""); 
+
+  const expenseCategories = ["Храна", "Транспорт", "Наем", "Сметки", "Забавления", "Здраве", "Пазаруване", "Други"];
+  const incomeCategories = ["Заплата", "Бонус", "Подарък", "Продажба", "Други"];
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     if (!userId) return;
 
     try {
-      const body = { user_id: userId, description, amount, type };
+      const body = { user_id: userId, description, amount, type, category };
       
       const response = await fetch("http://localhost:5000/transactions", {
         method: "POST",
@@ -25,6 +31,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
       if (response.ok) {
         setDescription("");
         setAmount("");
+        setCategory(""); // Връщаме до "Категория" след успешно добавяне
         if (onTransactionAdded) onTransactionAdded();
       }
     } catch (err) {
@@ -38,12 +45,15 @@ const InputTransaction = ({ onTransactionAdded }) => {
       
       <form onSubmit={onSubmitForm} className="input-form">
         
-        {/* type button */}
+        {/* БУТОНИ ЗА ТИПА */}
         <div className="type-buttons">
           <button 
             type="button" 
             className={`type-btn ${type === 'income' ? 'active-income' : ''}`}
-            onClick={() => setType('income')}
+            onClick={() => { 
+                setType('income'); 
+                setCategory(""); // 2. Нулираме категорията при смяна на типа
+            }}
           >
             Приход
           </button>
@@ -51,13 +61,31 @@ const InputTransaction = ({ onTransactionAdded }) => {
           <button 
             type="button" 
             className={`type-btn ${type === 'expense' ? 'active-expense' : ''}`}
-            onClick={() => setType('expense')}
+            onClick={() => { 
+                setType('expense'); 
+                setCategory(""); // 2. Нулираме категорията при смяна на типа
+            }}
           >
             Разход
           </button>
         </div>
 
-        {/* Amount input */}
+        {/* ПАДАЩО МЕНЮ */}
+        <select 
+          value={category} 
+          onChange={e => setCategory(e.target.value)}
+          className="category-select"
+          required // Това задължава потребителя да избере нещо различно от първата празна опция
+        >
+          {/* 3. ПРОМЯНА: Добавяме placeholder опция */}
+          <option value="" disabled>Категория</option>
+
+          {type === 'expense' 
+            ? expenseCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
+            : incomeCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
+          }
+        </select>
+
         <input
           type="number"
           placeholder="Сума"
@@ -66,17 +94,16 @@ const InputTransaction = ({ onTransactionAdded }) => {
           required
         />
 
-        {/* Description input */}
         <input
           type="text"
-          placeholder="Описание"
+          placeholder="Бележка (по желание)"
           value={description}
           onChange={e => setDescription(e.target.value)}
-          required
         />
-    
-        {/* Submit button */}
-        <button type="submit" className="btn-add"> + Добави </button>
+
+        <button type="submit" className="btn-add">
+          +
+        </button>
 
       </form>
     </div>
