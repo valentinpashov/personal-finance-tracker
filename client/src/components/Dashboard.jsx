@@ -47,7 +47,29 @@ const Dashboard = () => {
     }
   };
 
+  // Edit function
+  const editTransaction = async (id, oldDesc, oldAmount) => {
+    // New values from user
+    const newDesc = prompt("Въведи ново описание:", oldDesc);
+    const newAmount = prompt("Въведи нова сума:", oldAmount);
 
+    if (!newDesc || !newAmount) return;
+
+    try {
+        const body = { description: newDesc, amount: newAmount };
+        const response = await fetch(`http://localhost:5000/transactions/${id}`, {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(body)
+        });
+
+        if (response.ok) {
+            handleTransactionAdded(); // Refresh the data
+        }
+    } catch (err) {
+        console.error(err.message);
+    }
+  };
 
   // Calculate income, expense, balance
   const income = transactions
