@@ -118,6 +118,22 @@ app.delete('/transactions/:id', async (req, res) => {
   }
 });
 
+// Edit Transaction
+app.put('/transactions/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { description, amount } = req.body;
+    
+    const updateTransaction = await pool.query(
+      "UPDATE transactions SET description = $1, amount = $2 WHERE id = $3",
+      [description, amount, id]
+    );
+    
+    res.json("Транзакцията е обновена!");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
