@@ -1,5 +1,8 @@
 # 💰 Personal Finance Tracker
 
+![Status](https://img.shields.io/badge/Status-Work_in_Progress-orange?style=flat-square)
+
+
 A full-stack application for tracking personal finances. Users can manage their income and expenses, view their balance history, and track spending habits via a calendar view.
 
 ## ✨ Key Features
@@ -52,3 +55,36 @@ CREATE TABLE transactions(
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+```
+
+### 2. Backend Setup
+Navigate to the server folder and install dependencies:
+```
+cd server
+npm install
+```
+
+Create a .env file in the server folder with your configuration:
+```
+PG_USER=postgres
+PG_PASSWORD=your_db_password
+PG_HOST=localhost
+PG_PORT=5432
+PG_DATABASE=financetracker
+jwtSecret=your_secret_key_here
+```
+
+Start the server:
+```
+npx nodemon index.js
+```
+### 3. Frontend Setup
+Navigate to the client folder:
+```
+cd client
+npm install
+```
+Start the React application:
+```
+npm run dev
+```
