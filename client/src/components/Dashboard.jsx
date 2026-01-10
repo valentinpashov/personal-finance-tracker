@@ -35,7 +35,21 @@ const Dashboard = () => {
     setRefresh(prev => !prev);
   };
 
- // Calculate income, expense, and balance
+  // Delete function
+  const deleteTransaction = async (id) => {
+    try {
+        await fetch(`http://localhost:5000/transactions/${id}`, {  //server request
+            method: "DELETE"
+        });
+        setTransactions(transactions.filter(transaction => transaction.id !== id));  //Clear from UI this transaction
+    } catch (err) {
+        console.error(err.message);
+    }
+  };
+
+
+
+  // Calculate income, expense, balance
   const income = transactions
     .filter(t => t.type === 'income')
     .reduce((acc, curr) => acc + Number(curr.amount), 0);
@@ -46,19 +60,32 @@ const Dashboard = () => {
 
   const balance = income - expense;
 
+  // Render transaction item
   const renderTransactionItem = (tr) => (
     <div key={tr.id} className="transaction-item">
-        <div>
-            <span className="transaction-desc">
-                {tr.description}
-            </span>
-            <span className="transaction-date">
-                {new Date(tr.date).toLocaleDateString('bg-BG')}
-            </span>
+        <div className="transaction-info">
+
+            <span className="transaction-desc">{tr.description}</span>
+            <span className="transaction-date">{new Date(tr.date).toLocaleDateString('bg-BG')}</span>
+        
         </div>
-        <span className={`transaction-amount ${tr.type === 'income' ? 'amount-income' : 'amount-expense'}`}>
-            {Number(tr.amount).toFixed(2)} лв.
-        </span>
+        
+        {/* Buttons */}
+        <div className="transaction-actions">
+            <span className={`transaction-amount ${tr.type === 'income' ? 'amount-income' : 'amount-expense'}`}>
+                {Number(tr.amount).toFixed(2)} лв.
+            </span>
+
+            {/* Edit button */}
+            <button className="action-btn edit-btn" onClick={() => editTransaction(tr.id, tr.description, tr.amount)} title="Редактирай">
+                ✏️
+            </button>
+
+            {/* Delete button */}
+            <button className="action-btn delete-btn" onClick={() => deleteTransaction(tr.id)} title="Изтрий">
+                🗑️
+            </button>
+        </div>
     </div>
   );
 
@@ -92,7 +119,7 @@ const Dashboard = () => {
 
         {/* History */}
         <div className="history-container">
-
+          
           {/* Left Column: Income */}
           <div className="history-column">
             <h3 style={{color: "#2e7d32"}}>💰 Приходи</h3>
@@ -105,7 +132,7 @@ const Dashboard = () => {
             )}
           </div>
 
-           {/* Right Column: Expenses */}
+          {/* Right Column: Expenses */}
           <div className="history-column">
             <h3 style={{color: "#c62828"}}>📉 Разходи</h3>
             {transactions.filter(t => t.type === 'expense').length === 0 ? (
@@ -116,7 +143,7 @@ const Dashboard = () => {
                  .map(tr => renderTransactionItem(tr))
             )}
           </div>
-
+          
         </div>
 
       </div>
