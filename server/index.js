@@ -107,6 +107,18 @@ app.get('/transactions/:user_id', async (req, res) => {
   }
 });
 
+// Delete Transaction
+app.delete('/transactions/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteTransaction = await pool.query("DELETE FROM transactions WHERE id = $1", [id]);
+    res.json("Транзакцията е изтрита!");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
