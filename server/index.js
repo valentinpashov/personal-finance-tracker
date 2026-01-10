@@ -75,11 +75,11 @@ app.post('/login', async (req, res) => {
 app.post('/transactions', async (req, res) => {
   try {
     // Data from Frontend
-    const { user_id, description, amount, type } = req.body;
+    const { user_id, description, amount, type, category } = req.body;
 
     const newTransaction = await pool.query(
-      "INSERT INTO transactions (user_id, description, amount, type) VALUES ($1, $2, $3, $4) RETURNING *",
-      [user_id, description, amount, type]
+      "INSERT INTO transactions (user_id, description, amount, type, category) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [user_id, description, amount, type, category]
     );
 
     res.json(newTransaction.rows[0]);
@@ -122,11 +122,11 @@ app.delete('/transactions/:id', async (req, res) => {
 app.put('/transactions/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { description, amount } = req.body;
+    const { description, amount, category } = req.body;
     
     const updateTransaction = await pool.query(
-      "UPDATE transactions SET description = $1, amount = $2 WHERE id = $3",
-      [description, amount, id]
+      "UPDATE transactions SET description = $1, amount = $2, category = $3 WHERE id = $4",
+      [description, amount, category, id]
     );
     
     res.json("Транзакцията е обновена!");
