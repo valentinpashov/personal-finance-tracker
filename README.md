@@ -19,26 +19,36 @@ A full-stack application for tracking personal finances. Users can manage their 
 * **Backend:** Node.js, Express.js
 * **Database:** PostgreSQL
 * **Authentication:** JSON Web Tokens (JWT)
+
+
 ## 🛠️ Getting Started
 
 ### Prerequisites
-* Node.js installed
+* Node.js (v14 or higher)
 * PostgreSQL installed and running
 
 ### 1. Database Setup
-Create a PostgreSQL database named `financetracker` and run the SQL commands to create `users` and `transactions` tables.
+Create a PostgreSQL database named `financetracker` and run the following SQL commands to create the necessary tables:
 
-### 2. Backend Setup
-```bash
-cd server
-npm install
-# Create a .env file with DB_PASSWORD and JWT_SECRET
-npx nodemon index.js
-```
+```sql
+CREATE DATABASE financetracker;
 
-### 3. Frontend Setup
-```
-cd client
-npm install
-npm run dev
-```
+\c financetracker;
+
+CREATE TABLE users(
+    user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    username VARCHAR(255) NOT NULL,
+    user_email VARCHAR(255) NOT NULL UNIQUE,
+    user_password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE transactions(
+    id SERIAL PRIMARY KEY,
+    user_id UUID,
+    description VARCHAR(255),
+    amount NUMERIC,
+    type VARCHAR(10), -- 'income' or 'expense'
+    category VARCHAR(50),
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
