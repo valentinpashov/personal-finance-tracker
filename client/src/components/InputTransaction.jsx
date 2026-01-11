@@ -8,12 +8,10 @@ const InputTransaction = ({ onTransactionAdded }) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
-  
-  // 1. ПРОМЯНА: Започваме с празна категория
   const [category, setCategory] = useState(""); 
 
-  const expenseCategories = ["Храна", "Транспорт", "Наем", "Сметки", "Забавления", "Здраве", "Пазаруване", "Други"];
-  const incomeCategories = ["Заплата", "Бонус", "Подарък", "Продажба", "Други"];
+  const expenseCategories = ["Food", "Transport", "Rent", "Bills", "Entertainment", "Health", "Shopping", "Other"];
+  const incomeCategories = ["Salary", "Bonus", "Gift", "Sale", "Other"];
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -31,7 +29,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
       if (response.ok) {
         setDescription("");
         setAmount("");
-        setCategory(""); // Връщаме до "Категория" след успешно добавяне
+        setCategory(""); 
         if (onTransactionAdded) onTransactionAdded();
       }
     } catch (err) {
@@ -45,14 +43,14 @@ const InputTransaction = ({ onTransactionAdded }) => {
       
       <form onSubmit={onSubmitForm} className="input-form">
         
-        {/* БУТОНИ ЗА ТИПА */}
+        {/* Buttons for type */}
         <div className="type-buttons">
           <button 
             type="button" 
             className={`type-btn ${type === 'income' ? 'active-income' : ''}`}
             onClick={() => { 
                 setType('income'); 
-                setCategory(""); // 2. Нулираме категорията при смяна на типа
+                setCategory(""); 
             }}
           >
             Приход
@@ -63,21 +61,21 @@ const InputTransaction = ({ onTransactionAdded }) => {
             className={`type-btn ${type === 'expense' ? 'active-expense' : ''}`}
             onClick={() => { 
                 setType('expense'); 
-                setCategory(""); // 2. Нулираме категорията при смяна на типа
+                setCategory(""); 
             }}
           >
             Разход
           </button>
         </div>
 
-        {/* ПАДАЩО МЕНЮ */}
+        {/* Category dropdown */}
         <select 
           value={category} 
           onChange={e => setCategory(e.target.value)}
           className="category-select"
-          required // Това задължава потребителя да избере нещо различно от първата празна опция
+          required 
         >
-          {/* 3. ПРОМЯНА: Добавяме placeholder опция */}
+          {/* Category dropdown */}
           <option value="" disabled>Категория</option>
 
           {type === 'expense' 
@@ -101,9 +99,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
           onChange={e => setDescription(e.target.value)}
         />
 
-        <button type="submit" className="btn-add">
-          +
-        </button>
+        <button type="submit" className="btn-add"> + </button>
 
       </form>
     </div>
