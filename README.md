@@ -1,33 +1,90 @@
 # 💰 Personal Finance Tracker
 
-A full-stack web application for tracking personal income and expenses. This project is currently under development.
+![Status](https://img.shields.io/badge/Status-Work_in_Progress-orange?style=flat-square)
+
+
+A full-stack application for tracking personal finances. Users can manage their income and expenses, view their balance history, and track spending habits via a calendar view.
+
+## ✨ Key Features
+
+* **🔐 Authentication:** Secure Login and Registration (JWT & bcrypt).
+* **📊 Dashboard:** Real-time overview of Total Balance, Income, and Expenses.
+* **📝 Transaction Management:**
+    * Add income or expenses with specific **Categories** .
+    * **Edit** and **Delete** existing transactions.
+    * Visual split between Income and Expense history.
+* **📅 Financial Calendar:** Interactive calendar view to track spending 
+* **📱 Responsive Design:** Works on desktop and mobile.
 
 ## 🚀 Tech Stack
-* **Frontend:** React.js (Vite), Chart.js
+
+* **Frontend:** React.js (Vite), React Router, React Calendar
 * **Backend:** Node.js, Express.js
-* **Database:** PostgreSQL 
-* **Authentication:** JWT & bcrypt
+* **Database:** PostgreSQL
+* **Authentication:** JSON Web Tokens (JWT)
+
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
-* Node.js installed
+* Node.js (v14 or higher)
 * PostgreSQL installed and running
 
 ### 1. Database Setup
-Create a PostgreSQL database named `financetracker` and run the SQL commands to create `users` and `transactions` tables.
+Create a PostgreSQL database named `financetracker` and run the following SQL commands to create the necessary tables:
 
-### 2. Backend Setup
-```bash
-cd server
-npm install
-# Create a .env file with DB_PASSWORD and JWT_SECRET
-npx nodemon index.js
+```sql
+CREATE DATABASE financetracker;
+
+\c financetracker;
+
+CREATE TABLE users(
+    user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    username VARCHAR(255) NOT NULL,
+    user_email VARCHAR(255) NOT NULL UNIQUE,
+    user_password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE transactions(
+    id SERIAL PRIMARY KEY,
+    user_id UUID,
+    description VARCHAR(255),
+    amount NUMERIC,
+    type VARCHAR(10), -- 'income' or 'expense'
+    category VARCHAR(50),
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
 ```
 
+### 2. Backend Setup
+Navigate to the server folder and install dependencies:
+```
+cd server
+npm install
+```
+
+Create a .env file in the server folder with your configuration:
+```
+PG_USER=postgres
+PG_PASSWORD=your_db_password
+PG_HOST=localhost
+PG_PORT=5432
+PG_DATABASE=financetracker
+jwtSecret=your_secret_key_here
+```
+
+Start the server:
+```
+npx nodemon index.js
+```
 ### 3. Frontend Setup
+Navigate to the client folder:
 ```
 cd client
 npm install
+```
+Start the React application:
+```
 npm run dev
 ```
