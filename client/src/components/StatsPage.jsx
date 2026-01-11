@@ -27,7 +27,22 @@ const StatsPage = () => {
   }, [userId]);
 
   
-  
+  // Only expenses
+  const expenses = transactions.filter(t => t.type === 'expense');
+
+  // Make category totals
+  const categoryTotals = expenses.reduce((acc, curr) => {
+    const cat = curr.category || "Други"; // Default category
+    const amount = Number(curr.amount);
+    
+    if (acc[cat]) {
+      acc[cat] += amount;
+    } else {
+      acc[cat] = amount;
+    }
+    return acc;
+  }, {});
+
   return (
     <div className="dashboard-container">
       <Navbar />
