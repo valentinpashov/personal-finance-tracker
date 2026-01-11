@@ -42,7 +42,7 @@ const Register = () => {
         
         setTimeout(() => {
           navigate("/login");
-        }, 1500);   // 1,5 seconds
+        }, );   
       } else {
         // ERROR: Red message
         setMessage({ text: parseRes.message || "Грешка при регистрация", type: "error" });
