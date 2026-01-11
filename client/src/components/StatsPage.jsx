@@ -26,7 +26,6 @@ const StatsPage = () => {
     fetchData();
   }, [userId]);
 
-  
   // Only expenses
   const expenses = transactions.filter(t => t.type === 'expense');
 
@@ -42,6 +41,28 @@ const StatsPage = () => {
     }
     return acc;
   }, {});
+
+  // Chart data
+  const chartData = {
+    labels: Object.keys(categoryTotals), 
+    datasets: [
+      {
+        label: 'Лева',
+        data: Object.values(categoryTotals),
+        backgroundColor: [
+          '#FF6384', 
+          '#36A2EB', 
+          '#FFCE56', 
+          '#4BC0C0', 
+          '#9966FF', 
+          '#FF9F40', 
+          '#C9CBCF', 
+          '#2e7d32', 
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
 
   return (
     <div className="dashboard-container">
