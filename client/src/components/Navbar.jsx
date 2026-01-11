@@ -34,6 +34,10 @@ const Navbar = () => {
           📅 Календар
         </Link>
 
+        <Link to="/stats" className={`nav-link ${location.pathname === '/stats' ? 'active-link' : ''}`}>
+          📈 Статистика
+        </Link>
+
         {/* User name */}
         {user && ( <span className="user-name"> {user.username} </span>
         )}
