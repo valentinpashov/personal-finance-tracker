@@ -102,7 +102,41 @@ const StatsPage = () => {
     }
   };
 
-  
+  return (
+    <div className="dashboard-container">
+      <Navbar />
+      <div className="content">
+        <h1>Spending Analytics</h1>
+        
+        {expenses.length === 0 ? (
+           <p className="no-data">No data available.</p>
+        ) : (
+           <div className="modern-grid">
+              
+              {/* Donut Chart */}
+              <div className="card glass-card">
+                  <h3>Distribution</h3>
+                  <div className="chart-box">
+                    <div className="doughnut-text">
+                        <span>Total</span>
+                        <strong>{dataValues.reduce((a, b) => a + b, 0).toFixed(0)} лв.</strong>
+                    </div>
+                    <Doughnut data={doughnutData} options={doughnutOptions} />
+                  </div>
+              </div>
+
+              {/* Bar Chart */}
+              <div className="card glass-card">
+                  <h3>Top Categories</h3>
+                  <div className="chart-box">
+                    <Bar data={barData} options={barOptions} />
+                  </div>
+              </div>
+
+              
+
+           </div>
+        )}
       </div>
     </div>
   );
