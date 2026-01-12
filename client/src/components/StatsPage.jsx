@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement 
+} from "chart.js";
+import { Doughnut, Bar } from "react-chartjs-2"; 
 import Navbar from "./Navbar";
 import "./StatsPage.css";
 
-// Register Chart.js components
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 const StatsPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -26,73 +26,33 @@ const StatsPage = () => {
     fetchData();
   }, [userId]);
 
-  // Only expenses
   const expenses = transactions.filter(t => t.type === 'expense');
 
-  // Make category totals
+  // Category Totals data
   const categoryTotals = expenses.reduce((acc, curr) => {
-    const cat = curr.category || "Други"; // Default category
+    const cat = curr.category || "Other"; 
     const amount = Number(curr.amount);
-    
-    if (acc[cat]) {
-      acc[cat] += amount;
-    } else {
-      acc[cat] = amount;
-    }
+    acc[cat] = (acc[cat] || 0) + amount;
     return acc;
   }, {});
 
-  // Chart data
-  const chartData = {
-    labels: Object.keys(categoryTotals), 
-    datasets: [
-      {
-        label: 'Лева',
-        data: Object.values(categoryTotals),
-        backgroundColor: [
-          '#FF6384', 
-          '#36A2EB', 
-          '#FFCE56', 
-          '#4BC0C0', 
-          '#9966FF', 
-          '#FF9F40', 
-          '#C9CBCF', 
-          '#2e7d32', 
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
+  // Sorted categories by big to small amount
+  const sortedCategories = Object.entries(categoryTotals)
+    .sort(([,a], [,b]) => b - a); 
 
-  return (
-    <div className="dashboard-container">
-      <Navbar />
-      
-      <div className="content">
-        <h1>Статистика на разходите</h1>
-        
-        <div className="chart-container">
-            {expenses.length === 0 ? (
-                <p>Няма данни за разходи. Добави транзакции, за да видиш графиката.</p>
-            ) : (
-                <div className="pie-wrapper">
-                    <Pie data={chartData} />
-                </div>
-            )}
-        </div>
+  const labels = sortedCategories.map(([cat]) => cat);
+  const dataValues = sortedCategories.map(([, amount]) => amount);
 
-        <div className="stats-summary">
-            <h3>Детайли по категория:</h3>
-            <ul>
-                {Object.entries(categoryTotals).map(([cat, amount]) => (
-                    <li key={cat}>
-                        <span className="cat-name">{cat}</span>
-                        <span className="cat-amount">{amount.toFixed(2)} лв.</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
+  const backgroundColors = [
+    'rgba(54, 162, 235, 0.8)',  
+    'rgba(255, 99, 132, 0.8)',  
+    'rgba(75, 192, 192, 0.8)',  
+    'rgba(255, 206, 86, 0.8)',  
+    'rgba(153, 102, 255, 0.8)', 
+    'rgba(255, 159, 64, 0.8)',  
+  ];
 
+  
       </div>
     </div>
   );
