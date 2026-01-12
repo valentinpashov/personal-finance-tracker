@@ -4,7 +4,7 @@
   align-items: center;
   background-color: #2e7d32;
   color: white;
-  padding: 1rem 10%;
+  padding: 1rem 5%; 
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   width: 100%;
   position: fixed;
@@ -17,6 +17,7 @@
 .navbar-brand h2 {
   margin: 0;
   cursor: pointer;
+  font-size: 1.5rem;
 }
 
 .navbar-user {
@@ -26,7 +27,7 @@
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.8); 
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-weight: 600;
   padding: 8px 12px;
@@ -64,4 +65,70 @@
 
 .btn-logout:hover {
   background-color: #b71c1c;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
+}
+
+@media (max-width: 768px) {
+  
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .navbar-user {
+    position: fixed;
+    left: -100%; 
+    top: 70px; 
+    flex-direction: column;
+    background-color: #2e7d32; 
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    padding: 20px 0;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+  }
+
+  .navbar-user.open {
+    left: 0;
+  }
+
+  .navbar-user .nav-link {
+    display: block;
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+  
+  .user-name {
+    display: block;
+    margin: 15px 0;
+  }
+  
+  .btn-logout {
+    width: 80%; 
+    margin-top: 10px;
+    padding: 12px;
+  }
 }
