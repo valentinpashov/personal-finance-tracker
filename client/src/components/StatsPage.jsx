@@ -133,7 +133,29 @@ const StatsPage = () => {
                   </div>
               </div>
 
-              
+              {/* Details - History */}
+              <div className="card glass-card full-width">
+                  <h3>Details</h3>
+                  <div className="custom-legend">
+                    {sortedCategories.map(([cat, amount], i) => {
+                        const total = dataValues.reduce((a, b) => a + b, 0);
+                        const percent = ((amount / total) * 100).toFixed(1); 
+                        
+                        return (
+                          <div key={cat} className="legend-item">
+                             <div className="legend-left">
+                                <span className="dot" style={{background: backgroundColors[i % backgroundColors.length]}}></span>
+                                <span className="cat-name">{cat}</span>
+                             </div>
+                             <div className="legend-right">
+                                <span className="percent-badge">{percent}%</span>
+                                <span className="amount-text">{amount.toFixed(2)} лв.</span>
+                             </div>
+                          </div>
+                        )
+                    })}
+                  </div>
+              </div>
 
            </div>
         )}
