@@ -52,7 +52,27 @@ const StatsPage = () => {
     'rgba(255, 159, 64, 0.8)',  
   ];
 
-  
+  // Donut chart configurations
+  const doughnutData = {
+    labels: labels,
+    datasets: [{
+      data: dataValues,
+      backgroundColor: backgroundColors,
+      borderWidth: 0, 
+      hoverOffset: 10,
+    }],
+  };
+
+  const doughnutOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '75%', 
+    plugins: {
+      legend: { display: false }, 
+    }
+  };
+
+ 
       </div>
     </div>
   );
