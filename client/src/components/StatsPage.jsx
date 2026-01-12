@@ -72,7 +72,37 @@ const StatsPage = () => {
     }
   };
 
- 
+  // Bar chart configurations
+  const barData = {
+    labels: labels,
+    datasets: [{
+      label: 'Spent',
+      data: dataValues,
+      backgroundColor: 'rgba(54, 162, 235, 0.7)',
+      borderRadius: 8, 
+      barThickness: 30, 
+    }]
+  };
+
+  const barOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+    },
+    scales: {
+      x: {
+        grid: { display: false }, 
+        ticks: { font: { size: 11 } }
+      },
+      y: {
+        display: false, 
+        grid: { display: false }
+      }
+    }
+  };
+
+  
       </div>
     </div>
   );
