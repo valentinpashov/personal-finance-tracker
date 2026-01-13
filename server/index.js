@@ -71,39 +71,34 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Add Transaction
+// Edit Transaction
+app.get('/transactions/:user_id', async (req, res) => {
+  try {
+    const { user_id } = req.params;
+
+    const allTransactions = await pool.query(
+      "SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC", 
+      [user_id]
+    );
+    res.json(allTransactions.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//  Add Transaction
 app.post('/transactions', async (req, res) => {
   try {
-    // Data from Frontend
-    const { user_id, description, amount, type, category } = req.body;
+    const { user_id, description, amount, type, category, date } = req.body;
 
     const newTransaction = await pool.query(
-      "INSERT INTO transactions (user_id, description, amount, type, category) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [user_id, description, amount, type, category]
+      "INSERT INTO transactions (user_id, description, amount, type, category, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [user_id, description, amount, type, category, date]
     );
 
     res.json(newTransaction.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Get User Transactions
-app.get('/transactions/:user_id', async (req, res) => {
-  try {
-    const { user_id } = req.params;
-
-    // Get all transactions for this user, ordered by date 
-    const allTransactions = await pool.query(
-      "SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC",
-      [user_id]
-    );
-
-    res.json(allTransactions.rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
   }
 });
 
