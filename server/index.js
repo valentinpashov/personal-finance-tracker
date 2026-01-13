@@ -75,13 +75,11 @@ app.post('/login', async (req, res) => {
 app.get('/transactions/:user_id', async (req, res) => {
   try {
     const { user_id } = req.params;
-    
-    
+
     const allTransactions = await pool.query(
-      "SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC, id DESC", 
+      "SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC", 
       [user_id]
     );
-    
     res.json(allTransactions.rows);
   } catch (err) {
     console.error(err.message);
