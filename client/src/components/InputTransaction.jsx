@@ -9,6 +9,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState(""); 
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
   const expenseCategories = ["Food", "Transport", "Rent", "Bills", "Entertainment", "Health", "Shopping", "Other"];
   const incomeCategories = ["Salary", "Bonus", "Gift", "Sale", "Other"];
@@ -18,7 +19,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
     if (!userId) return;
 
     try {
-      const body = { user_id: userId, description, amount, type, category };
+      const body = { user_id: userId, description, amount, type, category, date };
       
       const response = await fetch("http://localhost:5000/transactions", {
         method: "POST",
@@ -30,6 +31,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
         setDescription("");
         setAmount("");
         setCategory(""); 
+        setDate(new Date().toISOString().split('T')[0]);
         if (onTransactionAdded) onTransactionAdded();
       }
     } catch (err) {
@@ -68,21 +70,31 @@ const InputTransaction = ({ onTransactionAdded }) => {
           </button>
         </div>
 
-        {/* Category dropdown */}
-        <select 
-          value={category} 
-          onChange={e => setCategory(e.target.value)}
-          className="category-select"
-          required 
-        >
-          {/* Category dropdown */}
-          <option value="" disabled>Категория</option>
+        <div style={{display: "flex", gap: "10px", width: "100%"}}>
+            <select 
+              value={category} 
+              onChange={e => setCategory(e.target.value)}
+              className="category-select"
+              style={{flex: 1}} 
+              required
+            >
+              <option value="" disabled>Category</option>
+              {type === 'expense' 
+                ? expenseCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
+                : incomeCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
+              }
+            </select>
 
-          {type === 'expense' 
-            ? expenseCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
-            : incomeCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
-          }
-        </select>
+            {/* Data input */}
+            <input
+              type="date"
+              value={date}
+              onChange={e => setDate(e.target.value)}
+              className="date-input"
+              style={{flex: 1, padding: "10px", borderRadius: "6px", border: "1px solid #ccc"}}
+              required
+            />
+        </div>
 
         <input
           type="number"
