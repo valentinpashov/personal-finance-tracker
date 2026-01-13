@@ -45,15 +45,11 @@ const InputTransaction = ({ onTransactionAdded }) => {
       
       <form onSubmit={onSubmitForm} className="input-form">
         
-        {/* Buttons for type */}
         <div className="type-buttons">
           <button 
             type="button" 
             className={`type-btn ${type === 'income' ? 'active-income' : ''}`}
-            onClick={() => { 
-                setType('income'); 
-                setCategory(""); 
-            }}
+            onClick={() => { setType('income'); setCategory(""); }}
           >
             Приход
           </button>
@@ -61,43 +57,39 @@ const InputTransaction = ({ onTransactionAdded }) => {
           <button 
             type="button" 
             className={`type-btn ${type === 'expense' ? 'active-expense' : ''}`}
-            onClick={() => { 
-                setType('expense'); 
-                setCategory(""); 
-            }}
+            onClick={() => { setType('expense'); setCategory(""); }}
           >
             Разход
           </button>
         </div>
+        
+        <select 
+          value={category} 
+          onChange={e => setCategory(e.target.value)}
+          className="category-select full-width"
+          required
+        >
+          <option value="" disabled>Category</option>
+          {type === 'expense' 
+            ? expenseCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
+            : incomeCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
+          }
+        </select>
 
-        <div className="input-group-row">
-            <select 
-              value={category} 
-              onChange={e => setCategory(e.target.value)}
-              className="category-select"
-              required
-            >
-              <option value="" disabled>Category</option>
-              {type === 'expense' 
-                ? expenseCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
-                : incomeCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
-              }
-            </select>
-            
-            <input
-              type="date"
-              value={date}
-              onChange={e => setDate(e.target.value)}
-              className="date-input"
-              required
-            />
-        </div>
+        <input
+          type="date"
+          value={date}
+          onChange={e => setDate(e.target.value)}
+          className="date-input full-width"
+          required
+        />
 
         <input
           type="number"
           placeholder="Сума"
           value={amount}
           onChange={e => setAmount(e.target.value)}
+          className="full-width"
           required
         />
 
@@ -106,9 +98,12 @@ const InputTransaction = ({ onTransactionAdded }) => {
           placeholder="Бележка (по желание)"
           value={description}
           onChange={e => setDescription(e.target.value)}
+          className="full-width"
         />
 
-        <button type="submit" className="btn-add"> + </button>
+        <button type="submit" className="btn-add full-width">
+          Добави
+        </button>
 
       </form>
     </div>
