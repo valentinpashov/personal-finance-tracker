@@ -70,12 +70,11 @@ const InputTransaction = ({ onTransactionAdded }) => {
           </button>
         </div>
 
-        <div style={{display: "flex", gap: "10px", width: "100%"}}>
+        <div className="input-group-row">
             <select 
               value={category} 
               onChange={e => setCategory(e.target.value)}
               className="category-select"
-              style={{flex: 1}} 
               required
             >
               <option value="" disabled>Category</option>
@@ -84,14 +83,12 @@ const InputTransaction = ({ onTransactionAdded }) => {
                 : incomeCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
               }
             </select>
-
-            {/* Data input */}
+            
             <input
               type="date"
               value={date}
               onChange={e => setDate(e.target.value)}
               className="date-input"
-              style={{flex: 1, padding: "10px", borderRadius: "6px", border: "1px solid #ccc"}}
               required
             />
         </div>
