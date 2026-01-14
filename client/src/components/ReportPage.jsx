@@ -52,6 +52,18 @@ const ReportPage = () => {
 
   const filteredData = getFilteredTransactions();
 
+  // Calculations for period
+  const income = filteredData
+    .filter(t => t.type === 'income')
+    .reduce((acc, curr) => acc + Number(curr.amount), 0);
+
+  const expense = filteredData
+    .filter(t => t.type === 'expense')
+    .reduce((acc, curr) => acc + Number(curr.amount), 0);
+  
+  const totalBalance = income - expense;
+
+
 };
 
 export default ReportPage;
