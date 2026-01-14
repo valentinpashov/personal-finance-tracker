@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import CalendarPage from "./components/CalendarPage";
 import StatsPage from "./components/StatsPage.jsx";
+import ReportPage from "./components/ReportPage.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/stats" element={<StatsPage />} />
+          <Route path="/report" element={<ReportPage />} />
         </Routes>
     </Router>
   );
