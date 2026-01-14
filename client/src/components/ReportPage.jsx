@@ -24,6 +24,33 @@ const ReportPage = () => {
   }, [userId]);
 
   // Filter logic
+  const getFilteredTransactions = () => {
+    const now = new Date();
+    now.setHours(0,0,0,0);
+
+    return transactions.filter(t => {
+      const tDate = new Date(t.date);
+      tDate.setHours(0,0,0,0);
+
+      if (timeFilter === 'daily') {
+        return tDate.getTime() === now.getTime();
+      }
+      if (timeFilter === 'weekly') {
+        const oneWeekAgo = new Date(now);
+        oneWeekAgo.setDate(now.getDate() - 7);
+        return tDate >= oneWeekAgo && tDate <= now;
+      }
+      if (timeFilter === 'monthly') {
+        return tDate.getMonth() === now.getMonth() && tDate.getFullYear() === now.getFullYear();
+      }
+      if (timeFilter === 'yearly') {
+        return tDate.getFullYear() === now.getFullYear();
+      }
+      return true; 
+    });
+  };
+
+  const filteredData = getFilteredTransactions();
 
 };
 
