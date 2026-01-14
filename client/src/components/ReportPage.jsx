@@ -70,7 +70,14 @@ const ReportPage = () => {
       <div className="content">
         <h1>Финансов Отчет</h1>
         
-       
+        {/* Buttons for filtering */}
+        <div className="filter-container">
+            <button className={`filter-btn ${timeFilter === 'daily' ? 'active' : ''}`} onClick={() => setTimeFilter('daily')}>Днес</button>
+            <button className={`filter-btn ${timeFilter === 'weekly' ? 'active' : ''}`} onClick={() => setTimeFilter('weekly')}>7 Дни</button>
+            <button className={`filter-btn ${timeFilter === 'monthly' ? 'active' : ''}`} onClick={() => setTimeFilter('monthly')}>Месец</button>
+            <button className={`filter-btn ${timeFilter === 'yearly' ? 'active' : ''}`} onClick={() => setTimeFilter('yearly')}>Година</button>
+            <button className={`filter-btn ${timeFilter === 'all' ? 'active' : ''}`} onClick={() => setTimeFilter('all')}>Всички</button>
+        </div>
 
         {/* Results */}
         <div className="balance-cards">
