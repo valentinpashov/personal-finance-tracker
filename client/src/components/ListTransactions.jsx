@@ -4,7 +4,21 @@ import "./ListTransactions.css";
 const ListTransactions = ({ transactions, setTransactionsChanged, transactionsChanged }) => {  
   const data = transactions || [];
 
-  
+  const deleteTransaction = async (id) => {
+    try {
+      const deleteTransaction = await fetch(`http://localhost:5000/transactions/${id}`, {
+        method: "DELETE"
+      });
+
+      if (setTransactionsChanged) {
+        setTransactionsChanged(!transactionsChanged);
+      } else {
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <div className="list-container">
