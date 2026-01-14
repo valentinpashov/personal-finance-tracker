@@ -63,7 +63,40 @@ const ReportPage = () => {
   
   const totalBalance = income - expense;
 
+  return (
+    <div className="report-container">
+      <Navbar />
+      
+      <div className="content">
+        <h1>Финансов Отчет</h1>
+        
+       
 
+        {/* Results */}
+        <div className="balance-cards">
+          <div className="card balance">
+            <h3>Баланс (Период)</h3>
+            <p>{totalBalance.toFixed(2)} лв.</p>
+          </div>
+          <div className="card income">
+            <h3>Приход</h3>
+            <p>+{income.toFixed(2)} лв.</p>
+          </div>
+          <div className="card expense">
+            <h3>Разход</h3>
+            <p>-{expense.toFixed(2)} лв.</p>
+          </div>
+        </div>
+
+        {/* List of only filtered transactions */}
+        <div style={{marginTop: "30px"}}>
+             <h3>Детайли за периода:</h3>
+             <ListTransactions transactions={filteredData} />
+        </div>
+
+      </div>
+    </div>
+  );
 };
 
 export default ReportPage;
