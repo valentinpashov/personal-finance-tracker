@@ -50,6 +50,10 @@ const Navbar = () => {
         <Link to="/stats" className={`nav-link ${location.pathname === '/stats' ? 'active-link' : ''}`} onClick={closeMenu} >
           📈 Статистика
         </Link>
+       
+        <Link to="/report" className={`nav-link ${location.pathname === '/report' ? 'active-link' : ''}`} onClick={closeMenu} >
+          📋 Отчет
+        </Link>
 
         {/* User name */}
         {user && ( <span className="user-name"> {user.username} </span>
