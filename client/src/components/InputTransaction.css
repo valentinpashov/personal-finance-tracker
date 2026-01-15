@@ -17,22 +17,46 @@
 
 .type-buttons {
   display: flex;
-  gap: 10px;
-  margin-bottom: 5px;
-  width: 100%;
+  justify-content: center;
+  gap: 15px; 
+  margin-bottom: 20px;
+  padding: 5px;
+  background-color: #f8f9fa; 
+  border-radius: 50px;       
 }
 
 .type-btn {
-  flex: 1;
-  padding: 12px;
+  flex: 1; 
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px; 
   cursor: pointer;
   font-weight: 600;
-  font-size: 1rem;
-  background-color: #f0f2f5;
-  color: #666;
-  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  background-color: transparent; 
+  color: #777; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.type-btn:hover {
+  color: #333;
+  background-color: rgba(0,0,0,0.05);
+}
+
+.type-btn.active-income {
+  background-color: #fff; 
+  color: #2e7d32;         
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2); 
+  transform: scale(1.05); 
+}
+
+.type-btn.active-expense {
+  background-color: #fff;
+  color: #c62828;         
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(198, 40, 40, 0.2); 
+  transform: scale(1.05); 
 }
 
 .type-btn.active-income { background-color: #2e7d32; color: white; }
