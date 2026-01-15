@@ -10,9 +10,25 @@ const InputTransaction = ({ onTransactionAdded }) => {
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState(""); 
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
 
   const expenseCategories = ["Food", "Transport", "Rent", "Bills", "Entertainment", "Health", "Shopping", "Other"];
   const incomeCategories = ["Salary", "Bonus", "Gift", "Sale", "Other"];
+
+  const categoryIcons = {
+    Food: "🍔",
+    Transport: "🚌",
+    Rent: "🏠",
+    Bills: "🧾",
+    Entertainment: "🎬",
+    Health: "💊",
+    Shopping: "🛍️",
+    Other: "🔹",
+    Salary: "💰",
+    Bonus: "🎁",
+    Gift: "🎀",
+    Sale: "🏷️"
+  };
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -39,6 +55,12 @@ const InputTransaction = ({ onTransactionAdded }) => {
     }
   };
 
+  // function to handle category selection from modal
+  const handleCategorySelect = (selectedCat) => {
+      setCategory(selectedCat);
+      setShowCategoryModal(false); 
+  };
+
   return (
     <div className="input-container">
       <h3>Добави транзакция</h3>
@@ -62,19 +84,7 @@ const InputTransaction = ({ onTransactionAdded }) => {
             Разход
           </button>
         </div>
-        
-        <select 
-          value={category} 
-          onChange={e => setCategory(e.target.value)}
-          className="category-select full-width"
-          required
-        >
-          <option value="" disabled>Category</option>
-          {type === 'expense' 
-            ? expenseCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
-            : incomeCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)
-          }
-        </select>
+
 
         <input
           type="date"
@@ -106,6 +116,28 @@ const InputTransaction = ({ onTransactionAdded }) => {
         </button>
 
       </form>
+
+      {showCategoryModal && (
+          <div className="cat-modal-overlay" onClick={() => setShowCategoryModal(false)}>
+              <div className="cat-modal-content" onClick={e => e.stopPropagation()}>
+                  <h4>Избери {type === 'income' ? 'Приход' : 'Разход'}</h4>
+                  
+                  <div className="categories-grid">
+                      {(type === 'expense' ? expenseCategories : incomeCategories).map(cat => (
+                          <button key={cat} type="button" className="cat-grid-btn" onClick={() => handleCategorySelect(cat)} >
+                              <div className="cat-icon">{categoryIcons[cat] || "🔹"}</div>
+                              <div className="cat-label">{cat}</div>
+                          </button>
+                      ))}
+                  </div>
+                  
+                  <button className="btn-close-modal" onClick={() => setShowCategoryModal(false)} >
+                    Отказ
+                  </button>
+              </div>
+          </div>
+      )}
+
     </div>
   );
 };
