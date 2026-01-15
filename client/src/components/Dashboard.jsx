@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import InputTransaction from "./InputTransaction";
 import "./Dashboard.css";
+import Footer from "./Footer";
 
 const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -145,6 +146,7 @@ const Dashboard = () => {
         </div>
 
       </div>
+      <Footer />
     </div>
   );
 };
