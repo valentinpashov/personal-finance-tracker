@@ -85,6 +85,17 @@ const InputTransaction = ({ onTransactionAdded }) => {
           </button>
         </div>
 
+        <div 
+            className="category-trigger full-width" 
+            onClick={() => setShowCategoryModal(true)}
+        >
+            {category ? (
+                <span>{categoryIcons[category]} {category}</span>
+            ) : (
+                <span style={{color: "#aaa"}}>Избери категория...</span>
+            )}
+            <span className="dropdown-arrow">▼</span>
+        </div>
 
         <input
           type="date"
