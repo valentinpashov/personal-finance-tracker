@@ -123,3 +123,48 @@
     gap: 15px;
     margin-bottom: 20px;
 }
+
+.cat-grid-btn {
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.cat-grid-btn:hover {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+    transform: translateY(-2px);
+}
+
+.cat-icon {
+    font-size: 1.8rem;
+}
+
+.cat-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: #c62828;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.btn-close-modal:hover {
+    background-color: #ffebee;
+    border-radius: 8px;
+}
