@@ -50,16 +50,32 @@
 }
 
 .btn-add {
-  width: 100%;
-  padding: 12px;
-  background-color: #333;
+  width: auto;          
+  min-width: 180px;     
+  display: block;     
+  margin: 20px auto 0;    
+  padding: 12px 30px;
+  background-color: #333; 
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  border-radius: 50px;   
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
-  margin-top: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #2e7d32;
+  transform: translateY(-3px); 
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
+}
+
+.btn-add:active {
+  transform: translateY(-1px); 
 }
 
 .category-trigger {
