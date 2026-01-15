@@ -227,3 +227,8 @@
     background-color: #ffebee;
     border-radius: 8px;
 }
+
+::placeholder {
+  color: #aaa;
+  font-weight: 400;
+}
