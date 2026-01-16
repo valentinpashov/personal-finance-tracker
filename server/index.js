@@ -147,6 +147,21 @@ app.get("/user/:id", async (req, res) => {
   }
 });
 
+// Update User Info
+app.put("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username } = req.body; 
+
+    const updateUser = await pool.query(
+      "UPDATE users SET username = $1 WHERE id = $2",
+      [username, id]
+    );
+
+    res.json("Потребителското име е обновено успешно!");
+  } 
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
