@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
-const Login = () => {
-  const navigate = useNavigate(); 
+const Login = ({ setAuth }) => {
+  const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -28,20 +28,18 @@ const Login = () => {
       const parseRes = await response.json();
 
       if (response.ok) {
-        // save token and user to localStorage
+       // save token and user to localStorage
         localStorage.setItem("token", parseRes.token);
         localStorage.setItem("user", JSON.stringify(parseRes.user));
 
-        // message for successful login
-        setMessage({ text: "Успешен вход! Пренасочване...", type: "success" });
-        
-        // redirect to dashboard 
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, );  
+        // let App.jsx know we're authenticated
+        setAuth(true);
+        setMessage({ text: "Успешен вход!", type: "success" });
+        navigate("/dashboard");
         
       } else {
-        setMessage({ text: parseRes.message || "Грешка при вход", type: "error" });
+        setMessage({ text: parseRes.message || "Грешка при вход", type: "error" }); 
+        setAuth(false);  
       }
     } catch (err) {
       console.error(err.message);
