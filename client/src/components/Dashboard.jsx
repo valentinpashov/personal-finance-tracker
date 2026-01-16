@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
-import Navbar from "./Navbar";
 import InputTransaction from "./InputTransaction";
 import "./Dashboard.css";
-import Footer from "./Footer";
 
 const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-
-  // use only userId for dependency tracking
   const userId = user ? user.id : null;
 
   const [transactions, setTransactions] = useState([]);
@@ -98,8 +94,8 @@ const Dashboard = () => {
             <span className={`transaction-amount ${tr.type === 'income' ? 'amount-income' : 'amount-expense'}`}>
                 {Number(tr.amount).toFixed(2)} лв.
             </span>
-            
-            {/* Edit button */}
+
+            {/* Edit button */}  
             <button className="action-btn edit-btn" onClick={() => editTransaction(tr.id, tr.description, tr.amount, tr.category)} title="Редактирай">
                 ✏️
             </button>
@@ -114,7 +110,6 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <Navbar />
       <div className="content">
         <h1>Твоето финансово табло</h1>
 
@@ -146,7 +141,6 @@ const Dashboard = () => {
         </div>
 
       </div>
-      <Footer />
     </div>
   );
 };
