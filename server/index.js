@@ -130,6 +130,23 @@ app.put('/transactions/:id', async (req, res) => {
   }
 });
 
+// Get User Info
+app.get("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await pool.query("SELECT username, email, created_at FROM users WHERE id = $1", [id]);
+    
+    if (user.rows.length === 0) {
+      return res.status(404).json("User not found");
+    }
+
+    res.json(user.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
