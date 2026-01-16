@@ -1,22 +1,27 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import CalendarPage from "./components/CalendarPage";
-import StatsPage from "./components/StatsPage.jsx";
-import ReportPage from "./components/ReportPage.jsx";
+import StatsPage from "./components/StatsPage";
+import ReportPage from "./components/ReportPage";
+import ProfilePage from "./components/ProfilePage";
+import Layout from "./components/Layout";
 
 function App() {
+  // User authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(localStorage.getItem("token")));
+
+  // Function to update authentication state
+  const setAuth = (boolean) => {
+    setIsAuthenticated(boolean);
+  };
+
   return (
     <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/register" />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/stats" element={<StatsPage />} />
-          <Route path="/report" element={<ReportPage />} />
         </Routes>
     </Router>
   );
