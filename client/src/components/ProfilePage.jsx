@@ -38,7 +38,28 @@ const ProfilePage = () => {
             <span className="profile-role">Pro Member 🚀</span>
         </div>
 
+        {/* User's Info */}
+        <div className="profile-info-grid">
+            <div className="info-item">
+                <span className="info-label">📧 Имейл</span>
+                <span className="info-value">{userData.email || "Няма имейл"}</span>
+            </div>
 
+            <div className="info-item">
+                <span className="info-label">📅 Дата на регистрация</span>
+                <span className="info-value">{joinDate}</span>
+            </div>
+
+            <div className="info-item">
+                <span className="info-label">🆔 Потребителско ID</span>
+                <span className="info-value">#{userId}</span>
+            </div>
+            
+            <div className="info-item">
+                <span className="info-label">🔐 Парола</span>
+                <span className="info-value">********</span> 
+            </div>
+        </div>
 
       </div>
     </div>
