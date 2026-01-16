@@ -159,7 +159,10 @@ app.put("/user/:id", async (req, res) => {
     );
 
     res.json("Потребителското име е обновено успешно!");
-  } 
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 const PORT = process.env.PORT || 5000;
