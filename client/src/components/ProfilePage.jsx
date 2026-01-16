@@ -31,7 +31,14 @@ const ProfilePage = () => {
     <div className="profile-page-container">
       <div className="profile-content-card">
         
-        
+        {/* Main */}
+        <div className="profile-header">
+            <div className="profile-avatar-large"> {initials}</div>
+            <h1 className="profile-title">{userData.username}</h1>
+            <span className="profile-role">Pro Member 🚀</span>
+        </div>
+
+
 
       </div>
     </div>
