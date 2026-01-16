@@ -1,21 +1,22 @@
-import { useState } from "react"; // Добавяме useState
+import { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ setAuth }) => {
   const navigate = useNavigate();
-  const location = useLocation(); // activ page
-
-   // take user data from localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
+  const location = useLocation();
   
-  // menu state
+  const user = JSON.parse(localStorage.getItem("user"));
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLogout = () => {
+  // logout function 
+  const handleLogout = (e) => {
+    e.preventDefault();
     // Clear localStorage and redirect to login
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    
+    setAuth(false);
     navigate("/login");
   };
 
@@ -25,7 +26,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/dashboard" style={{color: "white", textDecoration: "none"}}>
+        <Link to="/dashboard" style={{color: "white", textDecoration: "none"}} onClick={closeMenu}>
            <h2>💰 Finance Tracker</h2>
         </Link>
       </div>
@@ -56,7 +57,10 @@ const Navbar = () => {
         </Link>
 
         {/* User name */}
-        {user && ( <span className="user-name"> {user.username} </span>
+        {user && (
+            <Link to="/profile" className={`nav-link ${location.pathname === '/profile' ? 'active-link' : ''}`} onClick={closeMenu} style={{ marginLeft: "10px", marginRight: "10px" }} >
+                <span className="user-name">{user.username} 👤</span>
+            </Link>
         )}
         
         <button onClick={handleLogout} className="btn-logout"> Изход </button>
