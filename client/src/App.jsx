@@ -22,6 +22,29 @@ function App() {
   return (
     <Router>
         <Routes>
+
+          <Route path="/" element={!isAuthenticated ? <Navigate to="/register" /> : <Navigate to="/dashboard" />} />
+          
+          <Route path="/register" element={!isAuthenticated ? <Register setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
+          
+          <Route path="/login" element={!isAuthenticated ? <Login setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
+
+          <Route element={<Layout setAuth={setAuth} />}>
+             
+             <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+             
+             <Route path="/calendar" element={isAuthenticated ? <CalendarPage /> : <Navigate to="/login" />} />
+
+             <Route path="/stats" element={isAuthenticated ? <StatsPage /> : <Navigate to="/login" />} />
+
+             <Route path="/report" element={isAuthenticated ? <ReportPage /> : <Navigate to="/login" />} />
+
+             <Route path="/profile" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" />} />
+
+          </Route>
+          
+          <Route path="*" element={<Navigate to="/dashboard" />} />
+
         </Routes>
     </Router>
   );
