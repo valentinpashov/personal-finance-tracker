@@ -67,6 +67,29 @@ const ProfilePage = () => {
         <div className="profile-header">
             <div className="profile-avatar-large"> {initials}</div>
             
+            {/* logic for switching between text and input */}
+            {isEditing ? (
+                <div className="edit-name-container">
+                    <input 
+                        type="text" 
+                        className="edit-name-input"
+                        value={newName}
+                        onChange={(e) => setNewName(e.target.value)}
+                        autoFocus
+                    />
+                    <div className="edit-actions">
+                        <button onClick={handleSaveClick} className="btn-save">💾</button>
+                        <button onClick={() => setIsEditing(false)} className="btn-cancel">❌</button>
+                    </div>
+                </div>
+            ) : (
+                <div className="name-display-container">
+                    <h1 className="profile-title">
+                        {userData.username} 
+                        <span onClick={handleEditClick} className="edit-icon" title="Редактирай името"> ✏️</span>
+                    </h1>
+                </div>
+            )}
             
             <span className="profile-role">Pro Member 🚀</span>
         </div>
