@@ -115,3 +115,69 @@
     background-color: #c62828;
     color: white;
 }
+
+.name-display-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.edit-icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.edit-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.edit-name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-name-input {
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    border: 2px solid #2e7d32;
+    border-radius: 8px;
+    text-align: center;
+    width: 80%;
+    outline: none;
+    font-weight: bold;
+    color: #333;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-save, .btn-cancel {
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.btn-save {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.btn-cancel {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.btn-save:hover, .btn-cancel:hover {
+    transform: scale(1.1);
+}
