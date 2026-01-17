@@ -145,24 +145,14 @@ const StatsPage = () => {
 
                   return (
                     <div key={cat} className="legend-item">
-                      {/* ЛЯВА ЧАСТ: Точка + Име + Процент */}
                       <div className="legend-left">
-                        <span
-                          className="dot"
-                          style={{
-                            background:
-                              backgroundColors[i % backgroundColors.length],
-                          }}
-                        ></span>
+                        <span className="dot" style={{ background: backgroundColors[i % backgroundColors.length] }} ></span>
                         <span className="cat-name">{cat}</span>
                         <span className="percent-badge">{percent}%</span>
                       </div>
 
-                      {/* ДЯСНА ЧАСТ: Само сумата */}
                       <div className="legend-right">
-                        <span className="amount-text">
-                          {amount.toFixed(2)} лв.
-                        </span>
+                        <span className="amount-text"> {amount.toFixed(2)} лв. </span>
                       </div>
                     </div>
                   );
