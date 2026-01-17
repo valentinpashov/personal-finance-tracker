@@ -78,35 +78,29 @@ const Dashboard = () => {
   const balance = income - expense;
 
   // Render transaction item
-  const renderTransactionItem = (tr) => (
-    <div key={tr.id} className="transaction-item">
-        <div className="transaction-info">
-            <span style={{fontWeight: "bold", color: "#333", fontSize: "1.05rem"}}>
-                {tr.category || "Общи"} 
-            </span>
-            
-            <div style={{fontSize: "13px", color: "#666"}}>
-                {tr.description} <span style={{color: "#ccc"}}>|</span> {new Date(tr.date).toLocaleDateString('bg-BG')}
-            </div>
-        </div>
-        
-        <div className="transaction-actions">
-            <span className={`transaction-amount ${tr.type === 'income' ? 'amount-income' : 'amount-expense'}`}>
-                {Number(tr.amount).toFixed(2)} лв.
-            </span>
+const renderTransactionItem = (tr) => (
+  <div key={tr.id} className="transaction-item">
+      <div className="transaction-info">
+          <span className="category-badge"> {tr.category || "Общи"} </span>
+          
+          <div className="desc-text"> {tr.description} <span style={{color: "#ccc"}}>|</span> {new Date(tr.date).toLocaleDateString('bg-BG')} </div>
+      </div>
+      
+      <div className="transaction-actions">
+          <span className={`transaction-amount ${tr.type === 'income' ? 'amount-income' : 'amount-expense'}`}>
+              {Number(tr.amount).toFixed(2)} лв.
+          </span>
 
-            {/* Edit button */}  
-            <button className="action-btn edit-btn" onClick={() => editTransaction(tr.id, tr.description, tr.amount, tr.category)} title="Редактирай">
-                ✏️
-            </button>
+          <button className="action-btn edit-btn" onClick={() => editTransaction(tr.id, tr.description, tr.amount, tr.category)} title="Редактирай">
+              ✏️
+          </button>
 
-            {/* Delete button */}
-            <button className="action-btn delete-btn" onClick={() => deleteTransaction(tr.id)} title="Изтрий">
-                🗑️
-            </button>
-        </div>
-    </div>
-  );
+          <button className="action-btn delete-btn" onClick={() => deleteTransaction(tr.id)} title="Изтрий">
+              🗑️
+          </button>
+      </div>
+  </div>
+);
 
   return (
     <div className="dashboard-container">
