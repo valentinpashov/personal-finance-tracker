@@ -12,6 +12,7 @@
 }
 
 .glass-card {
+  width: 330px;
   background: #ffffff;
   border-radius: 16px; 
   padding: 25px;
