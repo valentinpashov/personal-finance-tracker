@@ -28,11 +28,11 @@ const Login = ({ setAuth }) => {
       const parseRes = await response.json();
 
       if (response.ok) {
-       // save token and user to localStorage
+        // save token and user to localStorage
         localStorage.setItem("token", parseRes.token);
         localStorage.setItem("user", JSON.stringify(parseRes.user));
 
-        // let App.jsx know we're authenticated
+        // update auth state- we're authenticated
         setAuth(true);
         setMessage({ text: "Успешен вход!", type: "success" });
         navigate("/dashboard");
@@ -49,7 +49,7 @@ const Login = ({ setAuth }) => {
 
   return (
     <div className="auth-container">
-      <h1>Personal Finance Tracker</h1>
+      <h1>💰 Finance Tracker</h1>
       <h2>Вход в системата</h2>
       
       <form onSubmit={onSubmitForm}>
@@ -83,7 +83,7 @@ const Login = ({ setAuth }) => {
         </div>
       )}
 
-      {/* Link to register */}
+     {/* Link to register */}
       <p style={{ marginTop: "20px", fontSize: "14px" }}>
         Нямаш акаунт? <Link to="/register" style={{ color: "#2e7d32", fontWeight: "bold" }}>Регистрирай се тук</Link>
       </p>
