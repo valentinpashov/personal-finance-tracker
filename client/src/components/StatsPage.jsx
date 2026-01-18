@@ -3,7 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 } from "chart.js";
 import { Doughnut, Bar } from "react-chartjs-2"; 
 import "./StatsPage.css";
-import { useLanguage } from "../LanguageContext"; // <--- Импорт
+import { useLanguage } from "../LanguageContext"; 
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
@@ -11,7 +11,7 @@ const StatsPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user ? user.id : null;
   const [transactions, setTransactions] = useState([]);
-  const { t } = useLanguage(); // <--- Хук
+  const { t } = useLanguage(); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +56,7 @@ const StatsPage = () => {
   return (
     <div className="stats-page-container">
       <div className="stats-content">
-        <h1>{t.financial_analysis}</h1> {/* Превод */}
+        <h1>{t.financial_analysis}</h1>
         
         {expenses.length === 0 ? (
            <div className="no-data-message">
