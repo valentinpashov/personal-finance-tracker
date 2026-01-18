@@ -50,7 +50,7 @@ const StatsPage = () => {
 
   const barData = {
     labels: labels,
-    
+    datasets: [{ label: 'Spent', data: dataValues, backgroundColor: 'rgba(46, 125, 50, 0.7)', borderRadius: 6, barThickness: 40 }]
   };
 
   return (
