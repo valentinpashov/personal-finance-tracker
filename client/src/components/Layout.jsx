@@ -6,6 +6,7 @@ const Layout = ({ setAuth }) => {
   return (
     <div className="page-wrapper" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       
+      
       <Navbar setAuth={setAuth} />
 
       <div style={{ flex: 1, width: "100%" }}>
