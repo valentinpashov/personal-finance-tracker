@@ -1,69 +1,68 @@
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
+import { useLanguage } from "../LanguageContext"; 
 
 const Navbar = ({ setAuth }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  const user = JSON.parse(localStorage.getItem("user"));
-  const [isOpen, setIsOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
-  // logout function 
-  const handleLogout = (e) => {
-    e.preventDefault();
+  // Logout function
+  const handleLogout = () => {
     // Clear localStorage and redirect to login
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     
-    setAuth(false);
+    if (setAuth) {
+        setAuth(false);
+    }
     navigate("/login");
   };
 
-  // close menu function
-  const closeMenu = () => setIsOpen(false);
-
   return (
     <nav className="navbar">
-      <div className="navbar-brand">
-        <Link to="/dashboard" style={{color: "white", textDecoration: "none"}} onClick={closeMenu}>
-           <h2>💰 Finance Tracker</h2>
-        </Link>
-      </div>
+      <div className="navbar-container">
+        <Link to="/" className="logo"> 💰 Finance Tracker </Link>
 
-      {/* burger menu logic */}
-      <div className={`hamburger ${isOpen ? "active" : ""}`} onClick={() => setIsOpen(!isOpen)}>
-        <span className="bar"></span>
-        <span className="bar"></span>
-        <span className="bar"></span>
-      </div>
-      
-      <div className={`navbar-user ${isOpen ? "open" : ""}`}>
-        
-        <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active-link' : ''}`} onClick={closeMenu} >
-          📊 Табло
-        </Link>
+        <div className="nav-right-side">
+            
+            <button onClick={toggleLanguage} className="lang-btn"> 
+              {language === 'bg' ? 'EN' : 'BG'}
+            </button>
 
-        <Link to="/calendar" className={`nav-link ${location.pathname === '/calendar' ? 'active-link' : ''}`} onClick={closeMenu} >
-          📅 Календар
-        </Link>
+            <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
+            {user ? (
+                <>
+                <Link to="/" className={location.pathname === "/" ? "active-link" : ""}>
+                    📊 {t.nav_dashboard}
+                </Link>
+                <Link to="/calendar" className={location.pathname === "/calendar" ? "active-link" : ""}>
+                    📅 {t.nav_calendar}
+                </Link>
+                <Link to="/stats" className={location.pathname === "/stats" ? "active-link" : ""}>
+                    📈 {t.nav_stats}
+                </Link>
+                <Link to="/report" className={location.pathname === "/report" ? "active-link" : ""}>
+                    📄 {t.nav_report}
+                </Link>
 
-        <Link to="/stats" className={`nav-link ${location.pathname === '/stats' ? 'active-link' : ''}`} onClick={closeMenu} >
-          📈 Статистика
-        </Link>
-       
-        <Link to="/report" className={`nav-link ${location.pathname === '/report' ? 'active-link' : ''}`} onClick={closeMenu} >
-          📋 Отчет
-        </Link>
+                <div className="user-section">
+                    <Link to="/profile" className="profile-link"> 👤 {user.username} </Link>
+                    <button onClick={handleLogout} className="logout-btn"> 🚪 {t.nav_logout} </button>
+                </div>
+                </>
+            ) : (
+                <Link to="/login" className="login-btn" style={{fontWeight: "bold", textDecoration: "none", color: "white"}}>Login</Link>
+            )}
+            </div>
 
-        {/* User name */}
-        {user && (
-            <Link to="/profile" className={`nav-link ${location.pathname === '/profile' ? 'active-link' : ''}`} onClick={closeMenu} style={{ marginLeft: "10px", marginRight: "10px" }} >
-                <span className="user-name">{user.username} 👤</span>
-            </Link>
-        )}
-        
-        <button onClick={handleLogout} className="btn-logout"> Изход </button>
+            <div className="hamburger" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}> ☰ </div>
+        </div>
       </div>
     </nav>
   );
