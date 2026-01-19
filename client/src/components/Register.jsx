@@ -57,14 +57,14 @@ const Register = () => {
   return (
     <div className="auth-container">
       <h1>Personal Finance Tracker</h1>
-      <h2>Създай профил</h2>
+      <h2>Create an account</h2>
       
       <form onSubmit={onSubmitForm}>
         <div className="form-group">
           <input
             type="text"
             name="username"
-            placeholder="Име (Username)"
+            placeholder="Username"
             value={inputs.username}
             onChange={handleChange}
             required
@@ -74,7 +74,7 @@ const Register = () => {
           <input
             type="email"
             name="email"
-            placeholder="Имейл адрес"
+            placeholder="Email"
             value={inputs.email}
             onChange={handleChange}
             required
@@ -84,14 +84,14 @@ const Register = () => {
           <input
             type="password"
             name="password"
-            placeholder="Парола"
+            placeholder="Password"
             value={inputs.password}
             onChange={handleChange}
             required
           />
         </div>
         
-        <button type="submit" className="btn-submit">Регистрирай се</button>
+        <button type="submit" className="btn-submit">Register</button>
       
       </form>
 
@@ -102,7 +102,7 @@ const Register = () => {
         </div>
       )}
 
-      <p style={{ marginTop: "20px", fontSize: "14px" }}>Вече имаш акаунт? <Link to="/login">Влез тук</Link></p>
+      <p style={{ marginTop: "20px", fontSize: "14px" }}>Already have an account? <Link to="/login">Log in here</Link></p>
     </div>
   );
 };
