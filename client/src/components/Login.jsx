@@ -50,14 +50,14 @@ const Login = ({ setAuth }) => {
   return (
     <div className="auth-container">
       <h1>💰 Finance Tracker</h1>
-      <h2>Вход в системата</h2>
+      <h2>Login</h2>
       
       <form onSubmit={onSubmitForm}>
         <div className="form-group">
           <input
             type="email"
             name="email"
-            placeholder="Имейл"
+            placeholder="Email"
             value={inputs.email}
             onChange={handleChange}
             required
@@ -67,25 +67,23 @@ const Login = ({ setAuth }) => {
           <input
             type="password"
             name="password"
-            placeholder="Парола"
+            placeholder="Password"
             value={inputs.password}
             onChange={handleChange}
             required
           />
         </div>
-        
-        <button type="submit" className="btn-submit">Влез</button>
+
+        <button type="submit" className="btn-submit">Log in</button>
       </form>
 
       {message && (
-        <div className={`message ${message.type}`}>
-          {message.text}
-        </div>
+        <div className={`message ${message.type}`}> {message.text} </div>
       )}
 
      {/* Link to register */}
       <p style={{ marginTop: "20px", fontSize: "14px" }}>
-        Нямаш акаунт? <Link to="/register" style={{ color: "#2e7d32", fontWeight: "bold" }}>Регистрирай се тук</Link>
+        Don't have an account? <Link to="/register" style={{ color: "#2e7d32", fontWeight: "bold" }}>Register here</Link>
       </p>
     </div>
   );
