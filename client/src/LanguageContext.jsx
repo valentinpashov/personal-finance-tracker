@@ -69,7 +69,13 @@ const translations = {
     cat_Salary: "Заплата",
     cat_Bonus: "Бонус",
     cat_Gift: "Подарък",
-    cat_Sale: "Продажба"
+    cat_Sale: "Продажба",
+
+    //Footer
+    footer_line1: "Поеми контрол над финансите си.",
+    footer_line2: "Следи приходи, разходи и спестявай умно.",
+    quick_links: "Бързи връзки",
+    rights_reserved: "Всички права запазени."
   },
   en: {
     nav_dashboard: "Dashboard",
@@ -139,7 +145,13 @@ const translations = {
     cat_Salary: "Salary",
     cat_Bonus: "Bonus",
     cat_Gift: "Gift",
-    cat_Sale: "Sale"
+    cat_Sale: "Sale",
+    
+    //Footer
+    footer_line1: "Take control of your finances.",
+    footer_line2: "Track income, expenses and save smartly.",
+    quick_links: "Quick Links",
+    rights_reserved: "All rights reserved."
   }
 };
 
