@@ -1,8 +1,5 @@
 # 💰 Personal Finance Tracker
 
-![Status](https://img.shields.io/badge/Status-Work_in_Progress-orange?style=flat-square)
-
-
 A full-stack application for tracking personal finances. Users can manage their income and expenses, view their balance history, and track spending habits via a calendar view.
 
 ## ✨ Key Features
