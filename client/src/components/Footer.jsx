@@ -1,34 +1,36 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
+import { useLanguage } from "../LanguageContext"; 
 
 const Footer = () => {
+  const { t } = useLanguage(); 
+
   return (
     <footer className="site-footer">
       <div className="footer-content">
         
         {/* App description */}
         <div className="footer-section">
+          
           <h3>💰 Finance Tracker</h3>
-          <p>
-            Поеми контрол над финансите си.<br />
-            Следи приходи, разходи и спестявай умно.
-          </p>
+          <p> {t.footer_line1}<br /> {t.footer_line2} </p>
+
         </div>
 
         {/* Navigation */}
         <div className="footer-section">
-          <h4>Бързи връзки</h4>
+          <h4>{t.quick_links}</h4>
           <ul>
-            <li><Link to="/dashboard">Табло</Link></li>
-            <li><Link to="/report">Отчет</Link></li>
-            <li><Link to="/calendar">Календар</Link></li>
+            <li><Link to="/dashboard">{t.nav_dashboard}</Link></li>
+            <li><Link to="/report">{t.nav_report}</Link></li>
+            <li><Link to="/calendar">{t.nav_calendar}</Link></li>
           </ul>
         </div>
 
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2026 Finance Tracker. Всички права запазени.</p>
+        <p>&copy; 2026 Finance Tracker. {t.rights_reserved}</p>
       </div>
     </footer>
   );
