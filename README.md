@@ -122,3 +122,16 @@ Start the React application:
 ```
 npm run dev
 ```
+## 📸 Application Preview
+
+| **Login Screen** | **Registration** |
+|:---:|:---:|
+| ![Register](./assets/Register.png) | ![Login](./assets/Login.png) |
+
+| **Dashboard** | **Calendar View** |
+|:---:|:---:|
+| ![Dashboard](./assets/Dashboard.png) | ![Calendar](./assets/Calender.png) |
+
+| **Financial Analysis** | **Financial Report** |
+|:---:|:---:|
+| ![Analysis](./assets/Diagrams.png) | ![Report](./assets/Report.png) |
