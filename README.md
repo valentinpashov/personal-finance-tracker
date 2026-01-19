@@ -5,13 +5,15 @@ A full-stack application for tracking personal finances. Users can manage their 
 ## ✨ Key Features
 
 * **🔐 Authentication:** Secure Login and Registration (JWT & bcrypt).
-* **📊 Dashboard:** Real-time overview of Total Balance, Income, and Expenses.
+* **📊 Dynamic Dashboard:** Real-time overview of Total Balance, Income, and Expenses.
+* **📈 Financial Analytics:** Visual charts (Doughnut & Bar charts) for category analysis.
 * **📝 Transaction Management:**
     * Add income or expenses with specific **Categories** .
     * **Edit** and **Delete** existing transactions.
     * Visual split between Income and Expense history.
 * **📅 Financial Calendar:** Interactive calendar view to track spending 
 * **📱 Responsive Design:** Works on desktop and mobile.
+* **🌍 Multi-language Support:** Seamlessly switch between English and Bulgarian.
 
 ## 🚀 Tech Stack
 
@@ -20,6 +22,41 @@ A full-stack application for tracking personal finances. Users can manage their 
 * **Database:** PostgreSQL
 * **Authentication:** JSON Web Tokens (JWT)
 
+## 📂 Project Structure
+
+The project is organized into a monolithic repository structure with separate directories for the **client** and **server**.
+
+```text
+PERSONAL-FINANCE-TRACKER/
+├── client/                      # Frontend (React + Vite)
+│   ├── public/
+│   ├── src/
+│   │   ├── components/          # UI Components & Pages
+│   │   │   ├── CalendarPage.jsx # Transaction Calendar View
+│   │   │   ├── Dashboard.jsx    # Main Stats & Balance
+│   │   │   ├── InputTransaction.jsx # Add Income/Expense Form
+│   │   │   ├── ListTransactions.jsx # Transaction History List
+│   │   │   ├── StatsPage.jsx    # Charts & Analysis (Chart.js)
+│   │   │   ├── ReportPage.jsx   # Detailed Financial Reports
+│   │   │   ├── ProfilePage.jsx  # User Profile Info
+│   │   │   ├── Navbar.jsx       # Navigation & Language Toggle
+│   │   │   ├── Layout.jsx       # Main Page Wrapper
+│   │   │   ├── Login.jsx        # Auth: Login Page
+│   │   │   ├── Register.jsx     # Auth: Register Page
+│   │   │   └── ... (CSS files for each component)
+│   │   ├── App.jsx              # Main App Routing
+│   │   ├── LanguageContext.jsx  # Context for BG/EN Translation
+│   │   └── main.jsx             # React Entry Point
+│   ├── index.html
+│   └── vite.config.js
+│
+├── server/                      # Backend (Node.js + Express)
+│   ├── db.js                    # PostgreSQL Connection Config
+│   ├── index.js                 # API Routes & Server Logic
+│   └── .env                     # Environment Variables (Ignored)
+│
+└── README.md                    # Project Documentation
+```
 
 ## 🛠️ Getting Started
 
