@@ -4,16 +4,16 @@ A full-stack application for tracking personal finances. Users can manage their 
 
 ## ✨ Key Features
 
-* **🔐 Authentication:** Secure Login and Registration (JWT & bcrypt).
-* **📊 Dynamic Dashboard:** Real-time overview of Total Balance, Income, and Expenses.
-* **📈 Financial Analytics:** Visual charts (Doughnut & Bar charts) for category analysis.
-* **📝 Transaction Management:**
+* **Authentication:** Secure Login and Registration (JWT & bcrypt).
+* **Dynamic Dashboard:** Real-time overview of Total Balance, Income, and Expenses.
+* **Financial Analytics:** Visual charts (Doughnut & Bar charts) for category analysis.
+* **Transaction Management:**
     * Add income or expenses with specific **Categories** .
     * **Edit** and **Delete** existing transactions.
     * Visual split between Income and Expense history.
-* **📅 Financial Calendar:** Interactive calendar view to track spending 
-* **📱 Responsive Design:** Works on desktop and mobile.
-* **🌍 Multi-language Support:** Seamlessly switch between English and Bulgarian.
+* **Financial Calendar:** Interactive calendar view to track spending 
+* **Responsive Design:** Works on desktop and mobile.
+* **Multi-language Support:** Seamlessly switch between English and Bulgarian.
 
 ## 🚀 Tech Stack
 
